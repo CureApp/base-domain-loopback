@@ -1,0 +1,11 @@
+{
+  "name": "base-domain-loopback",
+  "version": "1.0.0",
+  "description": "## creates custom model-definitions for loopback-with-admin",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
