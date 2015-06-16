@@ -44,87 +44,9 @@ class LoopbackDomainFacade extends require('base-domain')
             else
                 throw new Error "no default logger detected"
 
-        ###*
-        # PushManagerオブジェクト 代わりに @createPushManager() を使用してください
-        #
-        # @property pushManager
-        # @deprecated 
-        # @type {PushManager}
-        ###
-        Object.defineProperty @, 'pushManager', get: -> @createPushManager()
-
 
     ###*
-    事前にテーブルを読み込む
-    ###
-    loadMasterTables: ->
-        super(
-            'symptom'
-            'built-in-behavior-therapy'
-            'compensation-tool'
-        )
-
-    ###*
-    service class を取得
-
-    @method getService
-    @return {Function}
-    ###
-    getService: (name) ->
-
-        @require("#{name}-service")
-
-
-    ###*
-    serviceインスタンスを取得
-
-    @method createService
-    @return {Base} serviceインスタンス
-    ###
-    createService: (name) ->
-        @create("#{name}-service")
-
-
-    ###*
-    バリデータクラスのオブジェクトを取得する
-
-    @method createValidator
-    @param {String} name
-    @return {Validator}
-    ###
-    createValidator: (name)->
-        @create("#{name}-validator")
-
-
-    ###*
-    PushManagerオブジェクトを取得する
-
-    @method createPushManager
-    @return {PushManager}
-    ###
-    createPushManager: ->
-        # push通知マネージャ
-        PushManager = require("#{@constructor.dirname}/util/push-manager")
-        @pushManager = new PushManager(@)
-
-
-    ###*
-    ValidationErrorかどうか判定する. duck typing的
-
-    @method isValidationError
-    @param {Error} e
-    @return {Boolean}
-    ###
-    isValidationError: (e)->
-        return false if not @isDomainError(e)
-
-        return e.reason is 'validationError' and Array.isArray(e.brokenRules) and e.results?
-
-
-
-    ###*
-    sessionIdをセットする。セットされたあとのcreateRepository()で生成されたリポジトリは、
-    そのsessionIdを使うようになる。
+    set sessionId. Repositories generated after setSessionId(newSessionIDs) use the new sessionId
 
     @method setSessionId
     @param {String} sessionId
@@ -134,8 +56,7 @@ class LoopbackDomainFacade extends require('base-domain')
 
 
     ###*
-    baseURLをセットする。セットされたあとのcreateRepository()で生成されたリポジトリは、
-    そのbaseURLを使うようになる。
+    set baseURL. Repositories generated after setBaseURL(newBaseURL) use the new baseURL
 
     @method setBaseURL
     @param {String} baseURL
@@ -145,17 +66,9 @@ class LoopbackDomainFacade extends require('base-domain')
         return
 
 
-# util
-Facade.DateUtil        = require './util/date'
-Facade.StringGenerator = require './util/string-generator'
-Facade.Prefecture      = require './util/prefecture'
-
-# extended domain parts
-Facade.Factory            = require './factory'
-Facade.Repository         = require './repository'
-Facade.UserRepository     = require './user-repository'
-Facade.RelationRepository = require './relation-repository'
-Facade.Validator          = require './validator'
+LoopbackDomainFacade.Repository         = require './loopback-repository'
+LoopbackDomainFacade.UserRepository     = require './loopback-user-repository'
+LoopbackDomainFacade.RelationRepository = require './loopback-relation-repository'
 
 
 module.exports = LoopbackDomainFacade
