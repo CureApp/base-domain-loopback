@@ -1,11 +1,11 @@
 
+LoopbackRepository = require './loopback-repository'
+
 ###*
 @class LoopbackUserRepository
 @extends LoopbackRepository
 ###
-LoopbackRepository = require './loopback-repository'
-class LoopbackUserRepository
-
+class LoopbackUserRepository extends LoopbackRepository
     ###*
     constructor
 
@@ -138,4 +138,4 @@ class LoopbackUserRepository
 
 
 
-module.exports = LoopbackUserRepository extends LoopbackRepository
+module.exports = LoopbackUserRepository

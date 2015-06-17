@@ -1,141 +1,65 @@
 
-###*
-@class LoopbackUserRepository
-@extends LoopbackRepository
-###
-LoopbackRepository = require './loopback-repository'
-class LoopbackUserRepository
+LoopbackUserRepository = require('../../src/lib/loopback-user-repository')
+LoopbackUserClient = require('loopback-promised').LoopbackUserClient
+Promise = require('loopback-promised').Promise
 
-    ###*
-    constructor
+domain = require('../create-facade').create()
 
-    @constructor
-    @param {Object}  [options]
-    @param {String}  [options.sessionId] Session ID
-    @param {Boolean} [options.debug] shows debug log if true
-    ###
-    constructor: (options = {}) ->
-        super(options)
-        modelName = @constructor.modelName
-        @client = @getFacade().lbPromised.createUserClient(modelName, options)
+class SampleModel extends domain.constructor.Entity
+    @properties:
+        date:   @TYPES.DATE
+        parent: @TYPES.MODEL 'parent-model'
+
+class SampleModelRepository extends LoopbackUserRepository
+    @modelName: 'sample-model'
+
+domain.addClass('sample-model', SampleModel)
+domain.addClass('sample-model-repository', SampleModelRepository)
 
 
+describe 'LoopbackUserClient', ->
 
-    ###*
-    get sessionId from account information (email/password)
+    it 'has client, instance of LoopbackUserClient', ->
+        repo = domain.createRepository('sample-model')
+        expect(repo.client).to.be.instanceof LoopbackUserClient
 
-    @param {String} email
-    @param {String} password
-    @param {Boolean|String} [include] fetch related model if true. fetch submodels if 'include'. fetch submodels recursively if 'recursive'
-    @return {Promise(Object)}
-    ###
-    login: (email, password, include) ->
-        includeUser = include?
-        @client.login({email: email, password: password}, if includeUser then 'user' else null).then (response) =>
-            accessToken = response.id
-            userId = if includeUser then response.user.id else response.userId
+    describe 'login', ->
 
-            ret =
-                sessionId: accessToken + '/' + userId
+        xit 'cannot login without email or password', (done) ->
+            done()
 
-            if includeUser
-                model = @factory.createFromObject(response.user)
-                ret[@constructor.modelName] = model
+        xit 'cannot login with invalid email or password', (done) ->
+            done()
 
-                if include is 'include'
-
-                    facade = @getFacade()
-                    oldSessionId = facade.sessionId
-                    facade.setSessionId ret.sessionId
-
-                    return model.include(accessToken: accessToken).then =>
-                        ret[@constructor.modelName] = model
-                        facade.setSessionId oldSessionId
-                        return ret
-
-                else if include is 'recursive'
-                    return model.include(accessToken: accessToken, recursive: true).then =>
-                        ret[@constructor.modelName] = model
-                        facade.setSessionId oldSessionId
-
-                        return ret
-
-                else
-                    ret[@constructor.modelName] = model
-                    return ret
-
-            else
-                return ret
+        xit 'logins with email and password', (done) ->
+            done()
 
 
-    ###*
-    logout (delete session)
+    describe 'getBySessionId', ->
+        xit 'cannot fetch a user model by invalid sessionId', (done) ->
+            done()
 
-    @param {String} sessionId
-    @return {Promise}
-    ###
-    logout: (sessionId) ->
-        [accessToken, userId] = @parseSessionId sessionId
-        client = @getFacade().lbPromised.createUserClient(@constructor.modelName,
-            debug: @client.debug
-            accessToken: accessToken
-        )
+        xit 'fetchs a user model by valid sessionId', (done) ->
+            done()
 
-        client.logout(accessToken)
+    describe 'logout', ->
+        xit 'succeeds even when sessionId is not valid', (done) ->
+            done()
 
 
-    ###*
-    get user model by sessionId
+    describe 'confirm', ->
+        it 'returns boolean, depends on success of login, logout', (done) ->
+            repo = domain.createRepository('sample-model')
+            repo.login  = -> Promise.resolve {}
+            repo.logout = -> Promise.resolve {}
+            repo.confirm().then (result) ->
 
-    @method getBySessionId
-    @param {String} sessionId
-    @param {Object} [options]
-    @param {Boolean|String} [options.include] include related models or not. if 'recursive' is set, recursively fetches submodels
-    @return {Promise(Entity)}
-    ###
-    getBySessionId: (sessionId, options = {}) ->
-        [accessToken, userId] = @parseSessionId sessionId
-        client = @getFacade().lbPromised.createUserClient(@constructor.modelName,
-            debug: @client.debug
-            accessToken: accessToken
-        )
+                expect(result).to.be.true
 
-        client.findById(userId).then (user) =>
-            model = @factory.createFromObject user
-            if options.include
-                facade = @getFacade()
-                oldSessionId = facade.sessionId
-                facade.setSessionId sessionId
+                repo.login = -> Promise.reject new Error()
+                repo.confirm()
 
-                return model.include(recursive: (options.include is 'recursive')).then ->
-                    facade.setSessionId oldSessionId
-                    return model
-
-            else
-                return model
-
-        .catch (e) ->
-
-            if e.isLoopBackResponseError
-                return null
-
-            throw e
-
-
-    ###*
-    confirm existence of account by email and password
-
-    @param {String} email
-    @param {String} password
-    @return {Promise(Boolean)} アカウントが存在するかどうか
-    ###
-    confirm: (email, password) ->
-        @login(email, password).then (result) =>
-            @logout(result.sessionId).then ->
-                return true
-        .catch (e) ->
-            return false
-
-
-
-module.exports = LoopbackUserRepository extends LoopbackRepository
+            .then (result) ->
+                expect(result).to.be.false
+                done()
+            .catch done

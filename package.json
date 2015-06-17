@@ -10,7 +10,6 @@
     "base-domain": "^1.4.1",
     "coffee-script": "^1.9.3",
     "moment": "^2.9.0",
-    "es6-promise": "^2.3.0",
     "loopback-promised": "0.2.0"
   },
   "author": "",
