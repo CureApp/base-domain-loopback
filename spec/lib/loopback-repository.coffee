@@ -9,19 +9,13 @@ domain = require('../create-facade').create()
 class SampleModel extends domain.constructor.Entity
     @properties:
         date:   @TYPES.DATE
-        parent: @TYPES.MODEL 'parent-model'
-
-class ParentModel extends domain.constructor.Entity
-    @properties:
-        date: @TYPES.DATE
 
 class SampleModelRepository extends LoopbackRepository
     @modelName: 'sample-model'
-    @belongsTo: 'parent'
 
 domain.addClass('sample-model', SampleModel)
-domain.addClass('parent-model', ParentModel)
 domain.addClass('sample-model-repository', SampleModelRepository)
+
 
 describe 'LoopbackRepository', ->
 
@@ -37,12 +31,6 @@ describe 'LoopbackRepository', ->
             expect(LoopbackRepository.lbModelName).to.equal ''
 
 
-    it 'cannot be created when "belongsTo" is not set', ->
-        expect(-> new LoopbackRepository().client).to.throw Error
-
-    it 'is created when "belongsTo" is set', ->
-        expect(-> domain.createRepository('sample-model')).not.to.throw Error
-
     it 'has client, instance of LoopbackClient', ->
         repo = domain.createRepository('sample-model')
         expect(repo.client).to.be.instanceof LoopbackClient
@@ -52,12 +40,14 @@ describe 'LoopbackRepository', ->
         for k, v of new ResourceClientInterface() when typeof v is 'function' and k isnt 'mock'
             expect(repo.client[k]).to.be.a 'function'
 
+
     describe 'modifyDate', ->
         it 'convert date properties to valid date format', ->
             data =
                 date : '1986-03-10'
             domain.createRepository('sample-model').modifyDate(data)
             expect(data.date).to.match /1986-03-\d{2}T\d{2}:\d{2}:00\.000Z/
+
 
     describe 'save', ->
     # save: (entity) ->
