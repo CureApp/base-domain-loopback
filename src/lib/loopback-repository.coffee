@@ -10,6 +10,11 @@ moment = require 'moment'
 class LoopbackRepository extends MasterRepository
 
     ###*
+    aclType : type of access control list in [loopback-with-admin](https://github.com/cureapp/loopback-with-admin)
+    ###
+    @aclType: 'admin'
+
+    ###*
     by default, disable storing master table
     ###
     @storeMasterTable: off
