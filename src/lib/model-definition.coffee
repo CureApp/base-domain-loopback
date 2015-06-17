@@ -87,12 +87,13 @@ class ModelDefinition
 
     @method setHasManyRelation
     @param {String} relModel
+    @param {String} idPropName foreignKey
     ###
-    setHasManyRelation: (relModel) ->
+    setHasManyRelation: (relModel, idPropName) ->
         rel =
             type       : 'hasMany'
             model      : relModel
-            foreignKey : ''
+            foreignKey : idPropName
 
         @definition.relations[relModel] = rel
 

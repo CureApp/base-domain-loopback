@@ -134,14 +134,14 @@ describe 'ModelDefinition', ->
         it 'set "hasMany" relations to definition object', ->
 
             def = new ModelDefinition(@Child, @ChildRepository)
-            def.setHasManyRelation('xxx')
+            def.setHasManyRelation('xxx', 'xxxId')
 
             rels = def.definition.relations
 
             expect(rels).to.have.property 'xxx'
             expect(rels.xxx).to.have.property 'type', 'hasMany'
             expect(rels.xxx).to.have.property 'model', 'xxx'
-            expect(rels.xxx).to.have.property 'foreignKey', ''
+            expect(rels.xxx).to.have.property 'foreignKey', 'xxxId'
 
 
 

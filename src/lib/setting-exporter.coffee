@@ -45,7 +45,7 @@ class SettingExporter
             for prop, typeInfo of definition.getEntityPropInfo()
                 relModelName = typeInfo.model
                 relModelDefinition = definitions[relModelName]
-                relModelDefinition?.setHasManyRelation(modelName)
+                relModelDefinition?.setHasManyRelation(modelName, typeInfo.idPropName)
 
 
     ###*
