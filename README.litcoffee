@@ -1,16 +1,56 @@
 # base-domain-loopback
 
-## creates custom model-definitions for loopback-with-admin
+Domain-Driven Design with [loopback](http://docs.strongloop.com/display/public/LB/LoopBack)
 
-    modelDefinitions = require('base-domain-loopback').getModelDefinitions(domain)
 
-    require('loopback-with-admin').run(modelDefinitions)
+extends [base-domain](https://github.com/cureapp/base-domain)
 
-## creates facade classes with loopback access
-    require('base-domain-loopback').createInstance(baseURL: 'localhost:3000/api')
+# installation
 
-## creates repository classes with loopback access
+```bash
+$ npm install base-domain-loopback
+```
 
-    class MaterialRepository require('base-domain-loopback').LoopbackRepository
-    class PatientRepository require('base-domain-loopback').LoopbackUserRepository
-    class TalkRepository require('base-domain-loopback').LoopbackRelationRepository
+
+# usage
+## definition
+
+model definition is the same as [base-domain](https://github.com/cureapp/base-domain)
+
+domain-dir/player.coffee
+
+    Domain = require('base-domain-loopback')
+
+    class Player extends Domain.Entity
+        @properties:
+            name: @TYPES.STRING
+
+    module.exports = Player
+
+domain-dir/player-repository.coffee
+
+    Domain = require('base-domain-loopback')
+
+    class PlayerRepository extends Domain.LoopbackUserRepository
+        @aclType: 'owner' # access type. see README in loopback-with-admin
+
+main.coffee
+
+    domain = require('base-domain-loopback').createInstance
+        dirname: 'domain-dir'
+        baseURL: 'localhost:4157/api'
+
+
+## run loopback server with loopback-with-admin
+
+    domain = require('base-domain-loopback').createInstance dirname: 'domain-dir'
+
+    modelDefinitions = domain.getModelDefinitions()
+
+    config =
+        server:
+            port: 4157
+
+    require('loopback-with-admin').run(modelDefinitions, config)
+
+
