@@ -37,6 +37,7 @@ class LoopbackUserRepository extends LoopbackRepository
 
             ret =
                 sessionId: accessToken + '/' + userId
+                ttl: response.ttl
 
             if includeUser
                 model = @factory.createFromObject(response.user)

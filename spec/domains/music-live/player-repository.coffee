@@ -11,6 +11,8 @@ repository of player
 ###
 class PlayerRepository extends BaseDomainLoopback.LoopbackUserRepository
 
+    @aclType: 'owner'
+
     ###*
     model name to create
 

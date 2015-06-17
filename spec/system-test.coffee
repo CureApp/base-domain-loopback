@@ -5,6 +5,9 @@ domain = Facade.createInstance dirname: __dirname + '/domains/music-live', debug
 
 modelDefinitions = domain.getModelDefinitions()
 
+modelDefinitions.player.ttl = 24 * 3600 * 365 * 10
+modelDefinitions.player.maxTTL = 24 * 3600 * 365 * 100
+
 before (done) ->
 
     @timeout 10000
@@ -51,3 +54,20 @@ describe 'domain', ->
         domain.createRepository('song').singleQuery(where: {id: 'lowdown'}, include: 'author').then (song) ->
             expect(song.author).to.be.instanceof domain.getModel 'player'
             done()
+
+    it 'can login', (done) ->
+        domain.createRepository('player').login('shinout@shinout.com', 'shinout').then (result) =>
+            @sessionId = result.sessionId
+            expect(@sessionId).to.match /\/shin$/
+            expect(result.ttl).to.equal modelDefinitions.player.ttl
+            done()
+
+    it 'can access to "owner" aclType models', (done) ->
+
+        domain.setSessionId @sessionId
+
+        domain.createRepository('song').query(where: authorId: 'shin').then (songs) ->
+            expect(songs).to.have.length 1
+            done()
+
+
