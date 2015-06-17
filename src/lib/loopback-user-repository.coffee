@@ -127,7 +127,7 @@ class LoopbackUserRepository extends LoopbackRepository
 
     @param {String} email
     @param {String} password
-    @return {Promise(Boolean)} アカウントが存在するかどうか
+    @return {Promise(Boolean)} existence of the account
     ###
     confirm: (email, password) ->
         @login(email, password).then (result) =>
