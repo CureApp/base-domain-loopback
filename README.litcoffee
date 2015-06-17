@@ -34,6 +34,8 @@ domain-dir/player-repository.coffee
     class PlayerRepository extends Domain.LoopbackUserRepository
         @aclType: 'owner' # access type. see README in loopback-with-admin
 
+    module.exports = PlayerRepository
+
 main.coffee
 
     domain = require('base-domain-loopback').createInstance
