@@ -23,8 +23,23 @@ module.exports = (grunt) ->
                     reporter: 'spec'
                     require: 'coffee-script/register'
 
+        coffee:
+            dist:
+                expand: true
+                cwd: 'src/lib'
+                src: ['**/*.coffee']
+                dest: 'dist/lib/'
+                ext: '.js'
+                extDot: 'first'
+                options:
+                    bare: true
+
+
+
+
     grunt.loadNpmTasks 'grunt-mocha-chai-sinon'
     grunt.loadNpmTasks 'grunt-contrib-coffee'
 
     grunt.registerTask 'default', 'mocha-chai-sinon:spec'
     grunt.registerTask 'single', 'mocha-chai-sinon:single'
+    grunt.registerTask 'build', ['coffee:dist']
