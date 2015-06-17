@@ -66,9 +66,9 @@ class LoopbackDomainFacade extends require('base-domain')
         return
 
 
-LoopbackDomainFacade.Repository         = require './loopback-repository'
-LoopbackDomainFacade.UserRepository     = require './loopback-user-repository'
-LoopbackDomainFacade.RelationRepository = require './loopback-relation-repository'
+LoopbackDomainFacade.LoopbackRepository         = require './loopback-repository'
+LoopbackDomainFacade.LoopbackUserRepository     = require './loopback-user-repository'
+LoopbackDomainFacade.LoopbackRelationRepository = require './loopback-relation-repository'
 
 
 module.exports = LoopbackDomainFacade
