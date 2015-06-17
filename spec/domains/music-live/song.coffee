@@ -24,7 +24,7 @@ class Song extends Entity
     ###
     @properties:
         name      : @TYPES.STRING
-        author    : @TYPES.MODEL 'player'
+        author    : @TYPES.MODEL 'player', 'authorId'
     ### examples
         age         : @TYPES.NUMBER
         confirmed   : @TYPES.BOOLEAN

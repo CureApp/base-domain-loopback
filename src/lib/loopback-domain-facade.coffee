@@ -65,10 +65,14 @@ class LoopbackDomainFacade extends require('base-domain')
         @lbPromised.baseURL = baseURL
         return
 
+    getModelDefinitions: ->
+        new @constructor.SettingExporter(@).export()
+
 
 LoopbackDomainFacade.LoopbackRepository         = require './loopback-repository'
 LoopbackDomainFacade.LoopbackUserRepository     = require './loopback-user-repository'
 LoopbackDomainFacade.LoopbackRelationRepository = require './loopback-relation-repository'
+LoopbackDomainFacade.SettingExporter            = require './setting-exporter'
 
 
 module.exports = LoopbackDomainFacade
