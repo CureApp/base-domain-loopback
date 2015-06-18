@@ -21,7 +21,7 @@ class LoopbackRepository extends MasterRepository
 
 
     ###*
-    model name used in LoopBack
+    model name used in Loopback
     it will be the same value as @modelName if not set
 
     @property lbModelName
@@ -160,7 +160,7 @@ class LoopbackRepository extends MasterRepository
     @method getClientByEntity
     @protected
     @param {Entity} entity
-    @return {LoopBackClient} client
+    @return {LoopbackClient} client
     ###
     getClientByEntity: (entity) ->
         return @client
@@ -172,7 +172,7 @@ class LoopbackRepository extends MasterRepository
     @method getClientByForeignKey
     @protected
     @param {String} foreignKey
-    @return {LoopBackClient} client
+    @return {LoopbackClient} client
     ###
     getClientByForeignKey: (foreignKey) ->
         return @client
@@ -184,7 +184,7 @@ class LoopbackRepository extends MasterRepository
     @method getClientByQuery
     @protected
     @param {Object} query
-    @return {LoopBackClient} client
+    @return {LoopbackClient} client
     ###
     getClientByQuery: (query) ->
         return @client

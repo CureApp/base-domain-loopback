@@ -117,7 +117,7 @@ class LoopbackUserRepository extends LoopbackRepository
 
         .catch (e) ->
 
-            if e.isLoopBackResponseError
+            if e.isLoopbackResponseError
                 return null
 
             throw e

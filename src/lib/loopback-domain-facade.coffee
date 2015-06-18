@@ -1,5 +1,5 @@
 
-LoopBackPromised = require 'loopback-promised'
+LoopbackPromised = require 'loopback-promised'
 
 ###*
 @class LoopbackDomainFacade
@@ -23,7 +23,7 @@ class LoopbackDomainFacade extends require('base-domain')
 
         @debug  = !!options.debug
 
-        @lbPromised = LoopBackPromised.createInstance
+        @lbPromised = LoopbackPromised.createInstance
             baseURL: options.baseURL
 
         @sessionId = options.sessionId

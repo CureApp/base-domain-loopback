@@ -61,7 +61,7 @@ class LoopbackRelationRepository extends LoopbackRepository
     @method getClientByEntity
     @protected
     @param {Entity} entity
-    @return {LoopBackClient} client
+    @return {LoopbackClient} client
     ###
     getClientByEntity: (entity) ->
         foreignKey = entity?[@foreignKeyName]
@@ -74,7 +74,7 @@ class LoopbackRelationRepository extends LoopbackRepository
     @method getClientByForeignKey
     @protected
     @param {String} foreignKey
-    @return {LoopBackClient} client
+    @return {LoopbackClient} client
     ###
     getClientByForeignKey: (foreignKey) ->
         if foreignKey?
@@ -90,7 +90,7 @@ class LoopbackRelationRepository extends LoopbackRepository
     @method getClientByQuery
     @protected
     @param {Object} query
-    @return {LoopBackClient} client
+    @return {LoopbackClient} client
     ###
     getClientByQuery: (query) ->
         foreignKey = query?.where?[@foreignKeyName]
