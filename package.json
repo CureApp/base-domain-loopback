@@ -9,8 +9,9 @@
   "dependencies": {
     "base-domain": "^1.5.0",
     "coffee-script": "^1.9.3",
+    "loopback-promised": "0.2.2",
     "moment": "^2.9.0",
-    "loopback-promised": "0.2.2"
+    "through": "^2.3.7"
   },
   "author": "CureApp, Inc.",
   "devDependencies": {
@@ -27,6 +28,5 @@
     "url": "https://github.com/CureApp/base-domain-loopback/issues"
   },
   "homepage": "https://github.com/CureApp/base-domain-loopback",
-
   "license": "ISC"
 }
