@@ -4,6 +4,7 @@ LoopbackPromised = require 'loopback-promised'
 ###*
 @class LoopbackDomainFacade
 @extends Facade
+@module base-domain-loopback
 ###
 class LoopbackDomainFacade extends require('base-domain')
 

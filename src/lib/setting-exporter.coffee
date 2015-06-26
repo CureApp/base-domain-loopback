@@ -4,7 +4,9 @@ LoopbackRepository = require './loopback-repository'
 ModelDefinition    = require './model-definition'
 
 ###*
+export model info into loopback-with-admin's format
 @class SettingExporter
+@module base-domain-loopback
 ###
 class SettingExporter
 

@@ -3,6 +3,7 @@ LoopbackRepository = require './loopback-repository'
 ###*
 @class LoopbackUserRepository
 @extends LoopbackRepository
+@module base-domain-loopback
 ###
 class LoopbackRelationRepository extends LoopbackRepository
 

@@ -1,6 +1,11 @@
 
 LoopbackUserRepository = require './loopback-user-repository'
 
+###*
+
+@class ModelDefinition
+@module base-domain-loopback
+###
 class ModelDefinition
 
     constructor: (@EntityModel, @LoopbackRepository) ->

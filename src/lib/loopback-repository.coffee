@@ -5,7 +5,8 @@ Entity = require('base-domain').Entity
 moment = require 'moment'
 ###*
 @class LoopbackRepository
-@extends MasterRepository see https://github.com/cureapp/base-domain
+@extends MasterRepository
+@module base-domain-loopback
 ###
 class LoopbackRepository extends MasterRepository
 
