@@ -219,6 +219,15 @@
             },
             "fors": {},
             "namespaces": {}
+        },
+        "node_modules/base-domain/src/lib/value-object.coffee": {
+            "name": "node_modules/base-domain/src/lib/value-object.coffee",
+            "modules": {},
+            "classes": {
+                "ValueObject": 1
+            },
+            "fors": {},
+            "namespaces": {}
         }
     },
     "modules": {
@@ -260,13 +269,14 @@
                 "PropInfo": 1,
                 "ResourceClientInterface": 1,
                 "TypeInfo": 1,
-                "Util": 1
+                "Util": 1,
+                "ValueObject": 1
             },
             "fors": {},
             "namespaces": {},
             "tag": "module",
-            "file": "node_modules/base-domain/src/lib/util.coffee",
-            "line": 2,
+            "file": "node_modules/base-domain/src/lib/value-object.coffee",
+            "line": 5,
             "description": "dictionary-structured data model"
         }
     },
@@ -352,7 +362,7 @@
             "file": "node_modules/base-domain/src/lib/base-dict.coffee",
             "line": 4,
             "description": "dictionary-structured data model",
-            "extends": "BaseModel"
+            "extends": "ValueObject"
         },
         "BaseFactory": {
             "name": "BaseFactory",
@@ -382,7 +392,7 @@
             "file": "node_modules/base-domain/src/lib/base-list.coffee",
             "line": 4,
             "description": "list class of DDD pattern.",
-            "extends": "BaseModel"
+            "extends": "ValueObject"
         },
         "BaseModel": {
             "name": "BaseModel",
@@ -613,6 +623,21 @@
             "file": "node_modules/base-domain/src/lib/util.coffee",
             "line": 2,
             "description": "utility functions"
+        },
+        "ValueObject": {
+            "name": "ValueObject",
+            "shortname": "ValueObject",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "base-domain",
+            "namespace": "",
+            "file": "node_modules/base-domain/src/lib/value-object.coffee",
+            "line": 5,
+            "description": "Base model class without \"id\" column",
+            "extends": "BaseModel"
         }
     },
     "classitems": [

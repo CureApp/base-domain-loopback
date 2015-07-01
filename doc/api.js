@@ -24,7 +24,8 @@ YUI.add("yuidoc-meta", function(Y) {
         "ResourceClientInterface",
         "SettingExporter",
         "TypeInfo",
-        "Util"
+        "Util",
+        "ValueObject"
     ],
     "modules": [
         "base-domain",
