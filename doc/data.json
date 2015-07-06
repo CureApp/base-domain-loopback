@@ -1390,26 +1390,6 @@
         {
             "file": "node_modules/base-domain/src/lib/base-dict.coffee",
             "line": 33,
-            "description": "creates child class of BaseDict",
-            "itemtype": "method",
-            "name": "getAnonymousClass",
-            "params": [
-                {
-                    "name": "itemModelName",
-                    "description": "",
-                    "type": "String"
-                }
-            ],
-            "return": {
-                "description": "child class of BaseDict",
-                "type": "Function"
-            },
-            "class": "BaseDict",
-            "module": "base-domain"
-        },
-        {
-            "file": "node_modules/base-domain/src/lib/base-dict.coffee",
-            "line": 49,
             "description": "ids: get ids of items",
             "itemtype": "property",
             "name": "ids",
@@ -1421,7 +1401,7 @@
         },
         {
             "file": "node_modules/base-domain/src/lib/base-dict.coffee",
-            "line": 61,
+            "line": 45,
             "description": "items: dictionary of keys - models",
             "itemtype": "property",
             "name": "items",
@@ -1431,7 +1411,7 @@
         },
         {
             "file": "node_modules/base-domain/src/lib/base-dict.coffee",
-            "line": 68,
+            "line": 52,
             "description": "loaded: is data loaded or not",
             "itemtype": "property",
             "name": "loaded",
@@ -1441,7 +1421,7 @@
         },
         {
             "file": "node_modules/base-domain/src/lib/base-dict.coffee",
-            "line": 75,
+            "line": 59,
             "description": "itemFactory: instance of factory which creates item models",
             "itemtype": "property",
             "name": "itemFactory",
@@ -1451,14 +1431,14 @@
         },
         {
             "file": "node_modules/base-domain/src/lib/base-dict.coffee",
-            "line": 82,
+            "line": 66,
             "is_constructor": 1,
             "class": "BaseDict",
             "module": "base-domain"
         },
         {
             "file": "node_modules/base-domain/src/lib/base-dict.coffee",
-            "line": 105,
+            "line": 91,
             "description": "check if the model has submodel of the given key or not",
             "itemtype": "method",
             "name": "has",
@@ -1480,7 +1460,7 @@
         },
         {
             "file": "node_modules/base-domain/src/lib/base-dict.coffee",
-            "line": 116,
+            "line": 102,
             "description": "check if the model contains the given submodel or not",
             "itemtype": "method",
             "name": "contains",
@@ -1502,7 +1482,7 @@
         },
         {
             "file": "node_modules/base-domain/src/lib/base-dict.coffee",
-            "line": 130,
+            "line": 116,
             "description": "return submodel of the given key",
             "itemtype": "method",
             "name": "get",
@@ -1524,7 +1504,7 @@
         },
         {
             "file": "node_modules/base-domain/src/lib/base-dict.coffee",
-            "line": 142,
+            "line": 128,
             "description": "add new submodel to item(s)",
             "itemtype": "method",
             "name": "get",
@@ -1542,7 +1522,7 @@
         },
         {
             "file": "node_modules/base-domain/src/lib/base-dict.coffee",
-            "line": 156,
+            "line": 145,
             "description": "remove submodel from items\nboth acceptable, keys and submodels",
             "itemtype": "method",
             "name": "remove",
@@ -1560,7 +1540,7 @@
         },
         {
             "file": "node_modules/base-domain/src/lib/base-dict.coffee",
-            "line": 179,
+            "line": 170,
             "description": "set ids.",
             "itemtype": "method",
             "name": "setIds",
@@ -1576,7 +1556,7 @@
         },
         {
             "file": "node_modules/base-domain/src/lib/base-dict.coffee",
-            "line": 206,
+            "line": 199,
             "description": "set items from dic object\nupdate to new key",
             "itemtype": "method",
             "name": "setItems",
@@ -1592,7 +1572,7 @@
         },
         {
             "file": "node_modules/base-domain/src/lib/base-dict.coffee",
-            "line": 223,
+            "line": 216,
             "description": "returns item is Entity",
             "itemtype": "method",
             "name": "containsEntity",
@@ -1608,7 +1588,7 @@
         },
         {
             "file": "node_modules/base-domain/src/lib/base-dict.coffee",
-            "line": 235,
+            "line": 232,
             "description": "export models to Array",
             "itemtype": "method",
             "name": "toArray",
@@ -1619,7 +1599,7 @@
         },
         {
             "file": "node_modules/base-domain/src/lib/base-dict.coffee",
-            "line": 245,
+            "line": 242,
             "description": "create plain dict.\nif this dict contains entities, returns their ids\nif this dict contains non-entity models, returns their plain objects",
             "itemtype": "method",
             "name": "toPlainObject",
@@ -1632,7 +1612,7 @@
         },
         {
             "file": "node_modules/base-domain/src/lib/base-dict.coffee",
-            "line": 274,
+            "line": 271,
             "description": "on addEventlisteners for 'loaded'",
             "itemtype": "method",
             "name": "on",
@@ -1643,7 +1623,7 @@
         },
         {
             "file": "node_modules/base-domain/src/lib/base-dict.coffee",
-            "line": 290,
+            "line": 287,
             "description": "tell listeners emit loaded",
             "itemtype": "method",
             "name": "emitLoaded",
@@ -1667,20 +1647,7 @@
         },
         {
             "file": "node_modules/base-domain/src/lib/base-factory.coffee",
-            "line": 28,
-            "description": "name of dict model to create dict of @modelName",
-            "itemtype": "property",
-            "name": "dictModelName",
-            "static": 1,
-            "access": "protected",
-            "tagname": "",
-            "type": "String",
-            "class": "BaseFactory",
-            "module": "base-domain"
-        },
-        {
-            "file": "node_modules/base-domain/src/lib/base-factory.coffee",
-            "line": 39,
+            "line": 29,
             "description": "get anonymous factory class",
             "itemtype": "method",
             "name": "getAnonymousClass",
@@ -1700,7 +1667,7 @@
         },
         {
             "file": "node_modules/base-domain/src/lib/base-factory.coffee",
-            "line": 55,
+            "line": 45,
             "description": "constructor",
             "is_constructor": 1,
             "class": "BaseFactory",
@@ -1708,7 +1675,7 @@
         },
         {
             "file": "node_modules/base-domain/src/lib/base-factory.coffee",
-            "line": 64,
+            "line": 54,
             "description": "get model class this factory handles",
             "itemtype": "method",
             "name": "getModelClass",
@@ -1721,7 +1688,7 @@
         },
         {
             "file": "node_modules/base-domain/src/lib/base-factory.coffee",
-            "line": 75,
+            "line": 66,
             "description": "create empty model instance",
             "itemtype": "method",
             "name": "createEmptyModel",
@@ -1734,7 +1701,7 @@
         },
         {
             "file": "node_modules/base-domain/src/lib/base-factory.coffee",
-            "line": 85,
+            "line": 76,
             "description": "create instance of model class by plain object\n\nfor each prop, values are set by Model#set(prop, value)",
             "itemtype": "method",
             "name": "createFromObject",
@@ -1761,7 +1728,7 @@
         },
         {
             "file": "node_modules/base-domain/src/lib/base-factory.coffee",
-            "line": 121,
+            "line": 112,
             "description": "set value to model in creation",
             "itemtype": "method",
             "name": "setValueToModel",
@@ -1772,7 +1739,7 @@
         },
         {
             "file": "node_modules/base-domain/src/lib/base-factory.coffee",
-            "line": 146,
+            "line": 137,
             "description": "set empty values to model in creation",
             "itemtype": "method",
             "name": "setEmptyValueToModel",
@@ -1783,7 +1750,7 @@
         },
         {
             "file": "node_modules/base-domain/src/lib/base-factory.coffee",
-            "line": 176,
+            "line": 167,
             "description": "creates list and set it to the model",
             "itemtype": "method",
             "name": "setSubModelListToModel",
@@ -1794,7 +1761,7 @@
         },
         {
             "file": "node_modules/base-domain/src/lib/base-factory.coffee",
-            "line": 197,
+            "line": 188,
             "description": "set submodel to the prop",
             "itemtype": "method",
             "name": "setSubModelToModel",
@@ -1805,7 +1772,7 @@
         },
         {
             "file": "node_modules/base-domain/src/lib/base-factory.coffee",
-            "line": 222,
+            "line": 213,
             "description": "set submodel dict to the prop",
             "itemtype": "method",
             "name": "setSubModelToModel",
@@ -1816,7 +1783,7 @@
         },
         {
             "file": "node_modules/base-domain/src/lib/base-factory.coffee",
-            "line": 242,
+            "line": 233,
             "description": "fetch submodel(s) by id\navailable only when repository of submodel implements 'getByIdSync'\n(MasterRepository implements one)",
             "itemtype": "method",
             "name": "fetchEntityProp",
@@ -1827,7 +1794,7 @@
         },
         {
             "file": "node_modules/base-domain/src/lib/base-factory.coffee",
-            "line": 268,
+            "line": 259,
             "description": "create empty non-entity model and set to the prop",
             "itemtype": "method",
             "name": "createEmptyNonEntityProp",
@@ -1838,7 +1805,7 @@
         },
         {
             "file": "node_modules/base-domain/src/lib/base-factory.coffee",
-            "line": 281,
+            "line": 272,
             "description": "modify plain object before @createFromObject(obj)",
             "itemtype": "method",
             "name": "beforeCreateFromObject",
@@ -1861,7 +1828,7 @@
         },
         {
             "file": "node_modules/base-domain/src/lib/base-factory.coffee",
-            "line": 294,
+            "line": 285,
             "description": "modify model after createFromObject(obj), createEmptyModel()",
             "itemtype": "method",
             "name": "afterCreateModel",
@@ -1884,7 +1851,7 @@
         },
         {
             "file": "node_modules/base-domain/src/lib/base-factory.coffee",
-            "line": 308,
+            "line": 299,
             "description": "create model list",
             "itemtype": "method",
             "name": "createList",
@@ -1911,7 +1878,7 @@
         },
         {
             "file": "node_modules/base-domain/src/lib/base-factory.coffee",
-            "line": 325,
+            "line": 318,
             "description": "create model dict",
             "itemtype": "method",
             "name": "createDict",
@@ -1952,26 +1919,6 @@
         {
             "file": "node_modules/base-domain/src/lib/base-list.coffee",
             "line": 24,
-            "description": "creates child class of BaseList",
-            "itemtype": "method",
-            "name": "getAnonymousClass",
-            "params": [
-                {
-                    "name": "itemModelName",
-                    "description": "",
-                    "type": "String"
-                }
-            ],
-            "return": {
-                "description": "child class of BaseList",
-                "type": "Function"
-            },
-            "class": "BaseList",
-            "module": "base-domain"
-        },
-        {
-            "file": "node_modules/base-domain/src/lib/base-list.coffee",
-            "line": 41,
             "description": "ids: get ids of items",
             "itemtype": "property",
             "name": "ids",
@@ -1983,7 +1930,7 @@
         },
         {
             "file": "node_modules/base-domain/src/lib/base-list.coffee",
-            "line": 53,
+            "line": 36,
             "description": "items: array of models",
             "itemtype": "property",
             "name": "items",
@@ -1993,7 +1940,7 @@
         },
         {
             "file": "node_modules/base-domain/src/lib/base-list.coffee",
-            "line": 60,
+            "line": 43,
             "description": "loaded: is data loaded or not",
             "itemtype": "property",
             "name": "loaded",
@@ -2003,7 +1950,7 @@
         },
         {
             "file": "node_modules/base-domain/src/lib/base-list.coffee",
-            "line": 67,
+            "line": 50,
             "description": "itemFactory: instance of factory which creates item models",
             "itemtype": "property",
             "name": "itemFactory",
@@ -2013,14 +1960,14 @@
         },
         {
             "file": "node_modules/base-domain/src/lib/base-list.coffee",
-            "line": 74,
+            "line": 57,
             "is_constructor": 1,
             "class": "BaseList",
             "module": "base-domain"
         },
         {
             "file": "node_modules/base-domain/src/lib/base-list.coffee",
-            "line": 97,
+            "line": 82,
             "description": "set ids.",
             "itemtype": "method",
             "name": "setIds",
@@ -2036,7 +1983,7 @@
         },
         {
             "file": "node_modules/base-domain/src/lib/base-list.coffee",
-            "line": 124,
+            "line": 110,
             "description": "set items",
             "itemtype": "method",
             "name": "setItems",
@@ -2052,7 +1999,7 @@
         },
         {
             "file": "node_modules/base-domain/src/lib/base-list.coffee",
-            "line": 141,
+            "line": 128,
             "description": "returns item is Entity",
             "itemtype": "method",
             "name": "containsEntity",
@@ -2068,7 +2015,7 @@
         },
         {
             "file": "node_modules/base-domain/src/lib/base-list.coffee",
-            "line": 153,
+            "line": 143,
             "description": "sort items in constructor",
             "itemtype": "method",
             "name": "sort",
@@ -2079,7 +2026,7 @@
         },
         {
             "file": "node_modules/base-domain/src/lib/base-list.coffee",
-            "line": 163,
+            "line": 153,
             "description": "first item",
             "itemtype": "method",
             "name": "first",
@@ -2090,7 +2037,7 @@
         },
         {
             "file": "node_modules/base-domain/src/lib/base-list.coffee",
-            "line": 176,
+            "line": 166,
             "description": "last item",
             "itemtype": "method",
             "name": "last",
@@ -2101,7 +2048,7 @@
         },
         {
             "file": "node_modules/base-domain/src/lib/base-list.coffee",
-            "line": 189,
+            "line": 179,
             "description": "export models to Array",
             "itemtype": "method",
             "name": "toArray",
@@ -2112,7 +2059,7 @@
         },
         {
             "file": "node_modules/base-domain/src/lib/base-list.coffee",
-            "line": 199,
+            "line": 189,
             "description": "create plain list.\nif this list contains entities, returns their ids\nif this list contains non-entity models, returns their plain objects",
             "itemtype": "method",
             "name": "toPlainObject",
@@ -2125,7 +2072,7 @@
         },
         {
             "file": "node_modules/base-domain/src/lib/base-list.coffee",
-            "line": 228,
+            "line": 218,
             "description": "on addEventListeners for 'loaded'",
             "itemtype": "method",
             "name": "on",
@@ -2136,7 +2083,7 @@
         },
         {
             "file": "node_modules/base-domain/src/lib/base-list.coffee",
-            "line": 244,
+            "line": 234,
             "description": "tell listeners emit loaded",
             "itemtype": "method",
             "name": "emitLoaded",
@@ -2431,7 +2378,7 @@
         },
         {
             "file": "node_modules/base-domain/src/lib/base-repository.coffee",
-            "line": 60,
+            "line": 61,
             "description": "get model class this factory handles",
             "itemtype": "method",
             "name": "getModelClass",
@@ -2444,7 +2391,7 @@
         },
         {
             "file": "node_modules/base-domain/src/lib/base-repository.coffee",
-            "line": 72,
+            "line": 73,
             "description": "Update or insert a model instance",
             "itemtype": "method",
             "name": "save",
@@ -2473,7 +2420,7 @@
         },
         {
             "file": "node_modules/base-domain/src/lib/base-repository.coffee",
-            "line": 96,
+            "line": 97,
             "description": "get object by ID.",
             "itemtype": "method",
             "name": "get",
@@ -2502,7 +2449,7 @@
         },
         {
             "file": "node_modules/base-domain/src/lib/base-repository.coffee",
-            "line": 112,
+            "line": 113,
             "description": "alias for get()",
             "itemtype": "method",
             "name": "getById",
@@ -2531,7 +2478,7 @@
         },
         {
             "file": "node_modules/base-domain/src/lib/base-repository.coffee",
-            "line": 126,
+            "line": 127,
             "description": "Find all model instances that match params",
             "itemtype": "method",
             "name": "query",
@@ -2561,7 +2508,7 @@
         },
         {
             "file": "node_modules/base-domain/src/lib/base-repository.coffee",
-            "line": 141,
+            "line": 142,
             "description": "Find one model instance that matches params, Same as query, but limited to one result",
             "itemtype": "method",
             "name": "singleQuery",
@@ -2591,7 +2538,7 @@
         },
         {
             "file": "node_modules/base-domain/src/lib/base-repository.coffee",
-            "line": 157,
+            "line": 158,
             "description": "Destroy the given entity (which must have \"id\" value)",
             "itemtype": "method",
             "name": "delete",
@@ -2620,7 +2567,7 @@
         },
         {
             "file": "node_modules/base-domain/src/lib/base-repository.coffee",
-            "line": 172,
+            "line": 173,
             "description": "Update set of attributes.",
             "itemtype": "method",
             "name": "update",
@@ -2654,7 +2601,7 @@
         },
         {
             "file": "node_modules/base-domain/src/lib/base-repository.coffee",
-            "line": 196,
+            "line": 197,
             "description": "add createdAt, updatedAt to given data\n- createdAt will not be overriden if already set.\n- updatedAt will be overriden for each time",
             "itemtype": "method",
             "name": "appendTimeStamp",
@@ -4255,20 +4202,12 @@
     ],
     "warnings": [
         {
-            "message": "replacing incorrect tag: params with param",
-            "line": " node_modules/base-domain/src/lib/base-dict.coffee:33"
+            "message": "unknown tag: abstract",
+            "line": " node_modules/base-domain/src/lib/base-factory.coffee:272"
         },
         {
             "message": "unknown tag: abstract",
-            "line": " node_modules/base-domain/src/lib/base-factory.coffee:281"
-        },
-        {
-            "message": "unknown tag: abstract",
-            "line": " node_modules/base-domain/src/lib/base-factory.coffee:294"
-        },
-        {
-            "message": "replacing incorrect tag: params with param",
-            "line": " node_modules/base-domain/src/lib/base-list.coffee:24"
+            "line": " node_modules/base-domain/src/lib/base-factory.coffee:285"
         },
         {
             "message": "unknown tag: abstract",
@@ -4352,15 +4291,15 @@
         },
         {
             "message": "Missing item type",
-            "line": " node_modules/base-domain/src/lib/base-dict.coffee:82"
+            "line": " node_modules/base-domain/src/lib/base-dict.coffee:66"
         },
         {
             "message": "Missing item type\nconstructor",
-            "line": " node_modules/base-domain/src/lib/base-factory.coffee:55"
+            "line": " node_modules/base-domain/src/lib/base-factory.coffee:45"
         },
         {
             "message": "Missing item type",
-            "line": " node_modules/base-domain/src/lib/base-list.coffee:74"
+            "line": " node_modules/base-domain/src/lib/base-list.coffee:57"
         },
         {
             "message": "Missing item type",
