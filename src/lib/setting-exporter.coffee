@@ -23,9 +23,11 @@ class SettingExporter
 
         for EntityModel in @getAllEntityModels()
             modelName = EntityModel.getName()
-            EntityRepository = @facade.getRepository(modelName)
-
-            continue if (EntityRepository::) not instanceof LoopbackRepository
+            try
+                EntityRepository = @facade.getRepository(modelName)
+                continue if (EntityRepository::) not instanceof LoopbackRepository
+            catch e
+                continue
 
             definitions[modelName] = new ModelDefinition(EntityModel, EntityRepository)
 

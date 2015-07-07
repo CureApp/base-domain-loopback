@@ -20,6 +20,9 @@ describe 'SettingExporter', ->
             expect(@result.player).to.be.an 'object'
             expect(@result.instrument).to.be.an 'object'
 
+        it 'does not export entity with no repository', ->
+            expect(@result.staff).not.to.exist
+
         it 'does not export non entity models', ->
             expect(@result['live-info']).not.to.exist
 
@@ -44,7 +47,7 @@ describe 'SettingExporter', ->
         it 'returns all entity models registered in the domain', ->
             classes = new SettingExporter(domain).getAllEntityModels()
 
-            expect(classes.length).to.equal 3
+            expect(classes.length).to.equal 4
 
             for klass in classes
                 expect(klass::).to.be.instanceof Facade.Entity
@@ -57,7 +60,7 @@ describe 'SettingExporter', ->
             d = require('../create-facade').create(dirname: __dirname + '/../domains/music-live')
             expect(Object.keys d.classes).to.have.length 0
             new SettingExporter(d).loadAll()
-            expect(Object.keys d.classes).to.have.length 12
+            expect(Object.keys d.classes).to.have.length 13
 
 
 module.exports = SettingExporter
