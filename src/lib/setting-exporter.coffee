@@ -1,10 +1,14 @@
 
+debug = require('debug')('base-domain-loopback:setting-exporter')
+
 fs = require 'fs'
 LoopbackRepository = require './loopback-repository'
 ModelDefinition    = require './model-definition'
 
 ###*
 export model info into loopback-with-admin's format
+only available in Node.js
+
 @class SettingExporter
 @module base-domain-loopback
 ###
@@ -27,6 +31,9 @@ class SettingExporter
                 EntityRepository = @facade.getRepository(modelName)
                 continue if (EntityRepository::) not instanceof LoopbackRepository
             catch e
+                debug('Error in reading repository of %s', modelName)
+                debug(e.message)
+                debug(e.stack)
                 continue
 
             definitions[modelName] = new ModelDefinition(EntityModel, EntityRepository)
@@ -77,8 +84,9 @@ class SettingExporter
                 [ name, ext ] = filename.split '.'
                 @facade.require name
             catch e
-                console.log e
-                console.log e.stack
+                debug('Error in reading file: %s', filename)
+                debug(e.message)
+                debug(e.stack)
 
 
 module.exports = SettingExporter
