@@ -106,12 +106,16 @@
 <div class="file">
     <pre class="code prettyprint linenums">
 
+debug = require(&#x27;debug&#x27;)(&#x27;base-domain-loopback:setting-exporter&#x27;)
+
 fs = require &#x27;fs&#x27;
 LoopbackRepository = require &#x27;./loopback-repository&#x27;
 ModelDefinition    = require &#x27;./model-definition&#x27;
 
 ###*
 export model info into loopback-with-admin&#x27;s format
+only available in Node.js
+
 @class SettingExporter
 @module base-domain-loopback
 ###
@@ -130,9 +134,14 @@ class SettingExporter
 
         for EntityModel in @getAllEntityModels()
             modelName = EntityModel.getName()
-            EntityRepository = @facade.getRepository(modelName)
-
-            continue if (EntityRepository::) not instanceof LoopbackRepository
+            try
+                EntityRepository = @facade.getRepository(modelName)
+                continue if (EntityRepository::) not instanceof LoopbackRepository
+            catch e
+                debug(&#x27;Error in reading repository of %s&#x27;, modelName)
+                debug(e.message)
+                debug(e.stack)
+                continue
 
             definitions[modelName] = new ModelDefinition(EntityModel, EntityRepository)
 
@@ -182,8 +191,9 @@ class SettingExporter
                 [ name, ext ] = filename.split &#x27;.&#x27;
                 @facade.require name
             catch e
-                console.log e
-                console.log e.stack
+                debug(&#x27;Error in reading file: %s&#x27;, filename)
+                debug(e.message)
+                debug(e.stack)
 
 
 module.exports = SettingExporter
