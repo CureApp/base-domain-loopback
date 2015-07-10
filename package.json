@@ -1,13 +1,13 @@
 {
   "name": "base-domain-loopback",
-  "version": "1.2.4",
+  "version": "1.2.5",
   "description": "## creates custom model-definitions for loopback-with-admin",
   "main": "index.js",
   "scripts": {
     "test": "grunt"
   },
   "dependencies": {
-    "base-domain": "1.8.4",
+    "base-domain": "1.8.5",
     "coffee-script": "^1.9.3",
     "loopback-promised": "0.2.2",
     "moment": "^2.9.0",
