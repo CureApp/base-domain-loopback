@@ -8,4 +8,10 @@
  */
 
 require('coffee-script/register');
-module.exports = require('./src/base-domain-loopbackify.coffee');
+
+var BaseDomainLoopbackify = require('./src/base-domain-loopbackify.coffee');
+var baseDomainLoopbackify = new BaseDomainLoopbackify()
+
+module.exports = function(file, options) {
+    return baseDomainLoopbackify.run(file, options);
+};

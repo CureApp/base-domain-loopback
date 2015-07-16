@@ -7,11 +7,11 @@
     "test": "grunt"
   },
   "dependencies": {
-    "base-domain": "1.8.5",
+    "base-domain": "^1.8.7",
     "coffee-script": "^1.9.3",
+    "debug": "^2.2.0",
     "loopback-promised": "0.2.2",
     "moment": "^2.9.0",
-    "debug": "^2.2.0",
     "through": "^2.3.7"
   },
   "author": "CureApp, Inc.",

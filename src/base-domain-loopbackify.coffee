@@ -1,65 +1,9 @@
-through = require 'through'
-fs      = require 'fs'
-coffee  = require 'coffee-script'
-
-initialCodeGenerated = false
-
-module.exports = (file, options) ->
-
-    throwError() if not options.dirname
-
-    if initialCodeGenerated
-        return through()
-
-    else
-        initialCode = getInitialCode(options.dirname)
-        initialCodeGenerated = true
-
-        data = ''
-        write = (buf) -> data += buf
-
-        end = ->
-            @queue initialCode
-            @queue data
-            @queue null
-
-        return through write, end
 
 
+BaseDomainify = require('base-domain/src/base-domainify')
 
-getInitialCode = (dirname) ->
+class BaseDomainLoopbackify extends BaseDomainify
 
-    basename = require('path').basename dirname
-    _ = ' ' # spacer for indent
+    @moduleName: 'base-domain-loopback'
 
-    coffeeCode = """
-        Facade = require 'base-domain-loopback'
-
-        Facade::init = ->
-        #{_}return unless @dirname.match '#{basename}'\n
-    """
-
-
-    for filename in fs.readdirSync(dirname)
-
-        path = dirname + '/' + filename
-        name = filename.split('.')[0]
-
-        coffeeCode += """
-            #{_}@addClass '#{name}', require('#{path}')\n
-        """
-
-
-    coffeeCode += "#{_}return\n"
-
-    return coffee.compile(coffeeCode, bare: true)
-
-
-
-throwError = ->
-    throw new Error """
-        dirname must be passed.
-
-        browserify -t [ base-domain-loopback/ify --dirname dirname ]
-
-    """
+module.exports = BaseDomainLoopbackify
