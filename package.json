@@ -10,7 +10,7 @@
     "base-domain": "^1.9.1",
     "coffee-script": "^1.9.3",
     "debug": "^2.2.0",
-    "loopback-promised": "0.2.2",
+    "loopback-promised": "0.2.4",
     "moment": "^2.9.0",
     "through": "^2.3.7"
   },

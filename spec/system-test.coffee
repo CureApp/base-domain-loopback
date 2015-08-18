@@ -1,7 +1,7 @@
 
 Facade = require './base-domain-loopback'
 
-domain = Facade.createInstance dirname: __dirname + '/domains/music-live', debug: true
+domain = Facade.createInstance dirname: __dirname + '/domains/music-live', debug: false
 
 modelDefinitions = domain.getModelDefinitions()
 
