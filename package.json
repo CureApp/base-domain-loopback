@@ -7,7 +7,7 @@
     "test": "grunt"
   },
   "dependencies": {
-    "base-domain": "^1.10.0",
+    "base-domain": "1.9.3",
     "coffee-script": "^1.9.3",
     "debug": "^2.2.0",
     "loopback-promised": "0.2.4",
