@@ -146,18 +146,17 @@ class LoopbackUserRepository extends LoopbackRepository
     @method save
     @public
     @param {Entity|Object} entity
-    @param {ResourceClientInterface} [client=@client]
     @return {Promise(Entity)} entity (the same instance from input, if entity given,)
     ###
-    save: (entity, client) ->
+    save: (entity) ->
 
         password = entity?.password
 
-        super(entity, client).then =>
+        super(entity).then (result) =>
 
-            entity.password = password
+            result.password = password
 
-            return entity
+            return result
 
 
 module.exports = LoopbackUserRepository
