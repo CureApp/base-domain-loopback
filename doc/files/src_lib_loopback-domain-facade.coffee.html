@@ -136,6 +136,8 @@ class LoopbackDomainFacade extends require(&#x27;base-domain&#x27;)
 
         @sessionId = options.sessionId
 
+        @timeout = options.timeout
+
         @logger =
             if Ti?
                 info  : (v) -&gt; Ti.API.info(v)

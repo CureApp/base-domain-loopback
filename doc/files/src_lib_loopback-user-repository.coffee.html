@@ -246,6 +246,25 @@ class LoopbackUserRepository extends LoopbackRepository
             return false
 
 
+    ###*
+    Update or insert a model instance
+    reserves password property, as loopback does not return password
+
+    @method save
+    @public
+    @param {Entity|Object} entity
+    @return {Promise(Entity)} entity (the same instance from input, if entity given,)
+    ###
+    save: (entity) -&gt;
+
+        password = entity?.password
+
+        super(entity).then (result) =&gt;
+
+            result.password = password
+
+            return result
+
 
 module.exports = LoopbackUserRepository
 
