@@ -52,6 +52,7 @@ class LoopbackRepository extends MasterRepository
 
         options.accessToken ?= accessToken
         options.debug       ?= facade.debug
+        options.timeout     ?= facade.timeout
 
         @client = facade.lbPromised.createClient(lbModelName, options)
 

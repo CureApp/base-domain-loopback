@@ -30,13 +30,25 @@ describe 'LoopbackRepository', ->
         it 'has empty lbModelName', ->
             expect(LoopbackRepository.lbModelName).to.equal ''
 
-        it 'has empty lbModelName', ->
-            expect(LoopbackRepository.lbModelName).to.equal ''
-
 
     it 'has client, instance of LoopbackClient', ->
         repo = domain.createRepository('sample-model')
         expect(repo.client).to.be.instanceof LoopbackClient
+        expect(repo.client).not.to.have.property 'timeout'
+
+
+    it 'has client, instance of LoopbackClient customized with options', ->
+        options =
+            timeout: 1000
+            debug: false
+            accessToken: 'abc'
+
+        repo = domain.createRepository('sample-model', options)
+        expect(repo.client).to.be.instanceof LoopbackClient
+        expect(repo.client).to.have.property 'timeout', 1000
+        expect(repo.client).to.have.property 'debug', false
+        expect(repo.client).to.have.property 'accessToken', 'abc'
+
 
     it 'has client, implements interface of ResourceClientInterface', ->
         repo = domain.createRepository('sample-model')

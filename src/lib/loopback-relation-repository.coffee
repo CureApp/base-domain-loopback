@@ -50,6 +50,7 @@ class LoopbackRelationRepository extends LoopbackRepository
             many        : @constructor.modelName
             id          : null
             accessToken : @client.accessToken
+            timeout     : @client.timeout
             debug       : @client.debug
 
         @relClient = @getFacade().lbPromised.createRelatedClient(relClientOptions)

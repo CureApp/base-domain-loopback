@@ -23,6 +23,11 @@ describe 'LoopbackUserClient', ->
         repo = domain.createRepository('sample-model')
         expect(repo.client).to.be.instanceof LoopbackUserClient
 
+    it 'has client, instance of LoopbackUserClient with custom options', ->
+        repo = domain.createRepository('sample-model', timeout: 100)
+        expect(repo.client).to.be.instanceof LoopbackUserClient
+        expect(repo.client).to.have.property 'timeout', 100
+
     describe 'login', ->
 
         xit 'cannot login without email or password', (done) ->

@@ -54,10 +54,11 @@ describe 'LoopbackRelationRepository', ->
         expect(repo).to.have.property 'foreignKeyName', 'parentModelId'
 
     it 'has relClient', ->
-        repo = domain.createRepository('sample-model')
+        repo = domain.createRepository('sample-model', timeout: 300)
 
         expect(repo).to.have.property 'relClient'
         expect(repo.relClient).to.be.instanceof LoopbackRelatedClient
+        expect(repo.relClient).to.have.property 'timeout', 300
 
     describe 'getClientByEntity', ->
 
