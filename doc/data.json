@@ -1037,7 +1037,30 @@
         },
         {
             "file": "src/lib/loopback-repository.coffee",
-            "line": 159,
+            "line": 158,
+            "description": "Return the number of models that match the optional \"where\" filter.",
+            "itemtype": "method",
+            "name": "count",
+            "access": "public",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "where",
+                    "description": "",
+                    "type": "Object",
+                    "optional": true
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Promise(Number)"
+            },
+            "class": "LoopbackRepository",
+            "module": "base-domain-loopback"
+        },
+        {
+            "file": "src/lib/loopback-repository.coffee",
+            "line": 174,
             "description": "get client by entity. By default it returns @client",
             "itemtype": "method",
             "name": "getClientByEntity",
@@ -1059,7 +1082,7 @@
         },
         {
             "file": "src/lib/loopback-repository.coffee",
-            "line": 171,
+            "line": 186,
             "description": "get client by foreign key. By default it returns @client",
             "itemtype": "method",
             "name": "getClientByForeignKey",
@@ -1081,7 +1104,7 @@
         },
         {
             "file": "src/lib/loopback-repository.coffee",
-            "line": 183,
+            "line": 198,
             "description": "get client by query value. By default it returns @client",
             "itemtype": "method",
             "name": "getClientByQuery",
@@ -1103,7 +1126,7 @@
         },
         {
             "file": "src/lib/loopback-repository.coffee",
-            "line": 195,
+            "line": 210,
             "description": "get accessToken and userId by sessionId",
             "itemtype": "method",
             "name": "parseSessionId",
@@ -1616,7 +1639,7 @@
         {
             "file": "node_modules/base-domain/src/lib/base-dict.coffee",
             "line": 242,
-            "description": "set items from dic object\nupdate to new key",
+            "description": "set items from dict object\nupdate to new key",
             "itemtype": "method",
             "name": "setItems",
             "params": [
@@ -1631,7 +1654,7 @@
         },
         {
             "file": "node_modules/base-domain/src/lib/base-dict.coffee",
-            "line": 259,
+            "line": 260,
             "description": "returns item is Entity",
             "itemtype": "method",
             "name": "containsEntity",
@@ -1647,7 +1670,7 @@
         },
         {
             "file": "node_modules/base-domain/src/lib/base-dict.coffee",
-            "line": 275,
+            "line": 276,
             "description": "export models to Array",
             "itemtype": "method",
             "name": "toArray",
@@ -1658,7 +1681,7 @@
         },
         {
             "file": "node_modules/base-domain/src/lib/base-dict.coffee",
-            "line": 285,
+            "line": 286,
             "description": "create plain dict.\nif this dict contains entities, returns their ids\nif this dict contains non-entity models, returns their plain objects",
             "itemtype": "method",
             "name": "toPlainObject",
