@@ -155,6 +155,21 @@ class LoopbackRepository extends MasterRepository
 
 
 
+    ###*
+    Return the number of models that match the optional "where" filter.
+
+    @method count
+    @public
+    @param {Object} [where]
+    @return {Promise(Number)}
+    ###
+    count: (where = {}) ->
+
+        client = @getClientByQuery(where: where)
+
+        client.count(where)
+
+
 
     ###*
     get client by entity. By default it returns @client
