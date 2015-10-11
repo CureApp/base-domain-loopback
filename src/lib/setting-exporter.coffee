@@ -77,6 +77,8 @@ class SettingExporter
     ###
     loadAll: ->
 
+        return if not fs.existsSync @facade.dirname
+
         domainFiles = fs.readdirSync @facade.dirname
 
         for filename in domainFiles

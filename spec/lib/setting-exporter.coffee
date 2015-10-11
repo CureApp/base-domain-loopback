@@ -56,6 +56,20 @@ describe 'SettingExporter', ->
 
     describe 'loadAll', ->
 
+        it 'does nothing when there is no domain dir', ->
+
+            d = require('../create-facade').create(dirname: __dirname + '/../domains/xxx-no-dir')
+
+            expect(require('fs').existsSync(d.dirname)).to.be.false
+
+            expect(Object.keys d.classes).to.have.length 0
+
+            new SettingExporter(d).loadAll()
+
+            expect(Object.keys d.classes).to.have.length 0
+
+
+
         it 'requires entity models in the domain dir', ->
             d = require('../create-facade').create(dirname: __dirname + '/../domains/music-live')
             expect(Object.keys d.classes).to.have.length 0
