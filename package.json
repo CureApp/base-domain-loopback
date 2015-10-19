@@ -12,7 +12,8 @@
     "post-dependencies": "echo post-dependencies",
     "pre-release": "grunt build",
     "post-release": "echo post-release",
-    "gh-pages": "grunt yuidoc"
+    "gh-pages": "grunt yuidoc",
+    "bmp": "cc-bmp"
   },
   "dependencies": {
     "base-domain": "1.9.6",
@@ -30,7 +31,7 @@
     "grunt-contrib-yuidoc": "^0.7.0",
     "grunt-mocha-chai-sinon": "0.0.9",
     "loopback-with-admin": "1.5.4",
-    "node-circleci-autorelease": "^1.5.5"
+    "node-circleci-autorelease": "^1.5.6"
   },
   "repository": {
     "type": "git",
