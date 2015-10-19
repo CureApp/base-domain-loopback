@@ -7,9 +7,8 @@
  * browserify -t [ base-domain-loopback/ify --dirname /path/to/domain/dir ]
  */
 
-require('coffee-script/register');
 
-var BaseDomainLoopbackify = require('./src/base-domain-loopbackify.coffee');
+var BaseDomainLoopbackify = require('./dist/base-domain-loopbackify');
 var baseDomainLoopbackify = new BaseDomainLoopbackify()
 
 module.exports = function(file, options) {
