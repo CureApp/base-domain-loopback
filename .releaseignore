@@ -1,0 +1,9 @@
+node_modules
+.editorconfig
+spec
+.releaseignore
+.bmp.yml
+npm-debug.log
+
+Gruntfile.coffee
+README.litcoffee

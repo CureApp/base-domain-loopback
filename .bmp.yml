@@ -2,4 +2,3 @@
 version: 1.5.2
 files:
   package.json: '"version": "%.%.%",'
-  dev-tools/distribute: VERSION="%.%.%"

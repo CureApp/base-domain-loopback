@@ -4,7 +4,7 @@ Domain-Driven Design with [loopback](http://docs.strongloop.com/display/public/L
 
 # API documentation
 
-[latest API documentation Page](http://cureapp.github.io/base-domain-loopback/doc/index.html)
+[latest API documentation Page](http://cureapp.github.io/base-domain-loopback/index.html)
 
 extends [base-domain](https://github.com/cureapp/base-domain)
 
