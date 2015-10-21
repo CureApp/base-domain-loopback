@@ -3,10 +3,6 @@ LoopbackDomainFacade = require('../../src/lib/loopback-domain-facade')
 
 describe 'LoopbackDomainFacade', ->
 
-    it 'has moment', ->
-        expect(new LoopbackDomainFacade()).to.have.property 'moment', require 'moment'
-
-
     it 'has "debug" property (default: false)', ->
         expect(new LoopbackDomainFacade()).to.have.property 'debug', false
 
@@ -28,19 +24,15 @@ describe 'LoopbackDomainFacade', ->
         expect(new LoopbackDomainFacade(sessionId: 'ab/c')).to.have.property 'sessionId', 'ab/c'
 
 
-    it 'has logger', ->
-        expect(new LoopbackDomainFacade()).to.have.property 'logger'
-
-
     describe 'setSessionId', ->
-        it 'sets sessionId to this instance', -> 
+        it 'sets sessionId to this instance', ->
             domain = new LoopbackDomainFacade(sessionId: 'ab/c')
             domain.setSessionId('bc/d')
             expect(domain).to.have.property 'sessionId', 'bc/d'
 
 
     describe 'setBaseURL', ->
-        it 'sets baseURL to lbPromised', -> 
+        it 'sets baseURL to lbPromised', ->
             domain = new LoopbackDomainFacade(baseURL: 'localhost')
             domain.setBaseURL('localhost:3000/api')
             expect(domain.lbPromised).to.have.property 'baseURL', 'localhost:3000/api'

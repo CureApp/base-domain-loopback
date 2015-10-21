@@ -21,8 +21,6 @@ class LoopbackDomainFacade extends Facade
 
         super(options)
 
-        @moment = require 'moment'
-
         @debug  = !!options.debug
 
         @lbPromised = LoopbackPromised.createInstance
@@ -31,22 +29,6 @@ class LoopbackDomainFacade extends Facade
         @sessionId = options.sessionId
 
         @timeout = options.timeout
-
-        @logger =
-            if Ti?
-                info  : (v) -> Ti.API.info(v)
-                warn  : (v) -> Ti.API.info(v)
-                error : (v) -> Ti.API.info(v)
-                trace : (v) -> Ti.API.trace(v)
-            else if self?
-                info  : (v) -> console.log('[INFO]',  v)
-                warn  : (v) -> console.log('[WARN]',  v)
-                error : (v) -> console.log('[ERROR]', v)
-                trace : (v) -> console.log('[TRACE]', v)
-            else if console?
-                console
-            else
-                throw new Error "no default logger detected"
 
 
     ###*
