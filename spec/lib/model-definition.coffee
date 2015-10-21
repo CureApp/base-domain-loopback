@@ -109,12 +109,12 @@ describe 'ModelDefinition', ->
             expect(def.export()).to.equal def.definition
 
 
-    describe 'getEntityPropInfo', ->
+    describe 'getEntityProps', ->
 
         it 'returns typeInfo of the sub-entities', ->
             def = new ModelDefinition(@Child, @ChildRepository)
-            expect(def.getEntityPropInfo()).to.have.property 'pnt'
-            expect(def.getEntityPropInfo().pnt).to.have.property 'model', 'parent'
+            expect(def.getEntityProps()).to.have.property 'pnt'
+            expect(def.getEntityProps().pnt).to.have.property 'model', 'parent'
 
 
     describe 'getBelongsToRelations', ->

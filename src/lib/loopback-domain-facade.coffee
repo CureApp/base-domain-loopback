@@ -51,14 +51,21 @@ class LoopbackDomainFacade extends Facade
         @lbPromised.baseURL = baseURL
         return
 
+
+    ###*
+    Get model definition objects, which [loopback-with-admin](https://github.com/CureApp/loopback-with-admin))))
+
+    @method getModelDefinitions
+    @return {Object}
+    ###
     getModelDefinitions: ->
         new @constructor.SettingExporter(@).export()
 
 
-LoopbackDomainFacade.LoopbackRepository         = require './loopback-repository'
-LoopbackDomainFacade.LoopbackUserRepository     = require './loopback-user-repository'
-LoopbackDomainFacade.LoopbackRelationRepository = require './loopback-relation-repository'
-LoopbackDomainFacade.SettingExporter            = require './setting-exporter'
+    @LoopbackRepository         : require './loopback-repository'
+    @LoopbackUserRepository     : require './loopback-user-repository'
+    @LoopbackRelationRepository : require './loopback-relation-repository'
+    @SettingExporter            : require './setting-exporter'
 
 
 module.exports = LoopbackDomainFacade

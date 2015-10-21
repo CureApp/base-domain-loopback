@@ -36,17 +36,17 @@ class LoopbackRelationRepository extends LoopbackRepository
 
         modelProps = @getModelClass().getModelProps()
         belongsTo = @constructor.belongsTo
-        parentPropType = modelProps.getTypeInfo(belongsTo)
+        foreignPropType = modelProps.getTypeInfo(belongsTo)
 
         if not modelProps.isEntity belongsTo
             throw new Error """
                 "belongsTo" property: #{belongsTo} is not a entity prop.
             """
 
-        @foreignKeyName = parentPropType.idPropName
+        @foreignKeyName = foreignPropType.idPropName
 
         relClientOptions =
-            one         : parentPropType.model
+            one         : foreignPropType.model
             many        : @constructor.modelName
             id          : null
             accessToken : @client.accessToken

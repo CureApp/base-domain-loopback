@@ -2,6 +2,7 @@
 LoopbackUserRepository = require './loopback-user-repository'
 
 ###*
+loopback model definition of one entity
 
 @class ModelDefinition
 @module base-domain-loopback
@@ -32,6 +33,13 @@ class ModelDefinition
         @EntityModel.getName()
 
 
+    ###*
+    get plural model name: the same as getName() for simplicity
+
+    @method getPluralName
+    @private
+    @return {String} modelName
+    ###
     getPluralName: ->
         return @EntityModel.getName()
 
@@ -51,21 +59,29 @@ class ModelDefinition
             return 'PersistedModel'
 
 
+    ###*
+    Returns the definition
+
+    @method export
+    @public
+    @return {Object} definition
+    ###
     export: ->
         @definition
 
 
     ###*
-    get property info of sub-entities
+    get props info of sub-entities
 
-    @method getEntityPropInfo
+    @method getEntityProps
+    @return {Object(TypeInfo)}
     ###
-    getEntityPropInfo: ->
+    getEntityProps: ->
         info = {}
-        propInfo = @EntityModel.getModelProps()
+        modelProps = @EntityModel.getModelProps()
 
-        for prop in propInfo.entities
-            info[prop] = propInfo.dic[prop]
+        for prop in modelProps.entities
+            info[prop] = modelProps.dic[prop]
 
         return info
 
@@ -77,7 +93,7 @@ class ModelDefinition
     ###
     getBelongsToRelations: ->
         rels = {}
-        for prop, typeInfo of @getEntityPropInfo()
+        for prop, typeInfo of @getEntityProps()
 
             rels[prop] =
                 type       : 'belongsTo'

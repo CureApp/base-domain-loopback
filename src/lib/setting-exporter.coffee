@@ -17,9 +17,17 @@ class SettingExporter
     constructor: (@facade) ->
 
     ###*
-    create ModelDefinitions
+    Create ModelDefinitions
 
-    @private
+    1. load all the entities
+    2. check each entity's repository is LoopbackRepository
+    3. create ModelDefinition
+    4. add "hasMany" Relations
+    5. return object
+
+    @method export
+    @public
+    @return {Object}
     ###
     export: ->
 
@@ -53,7 +61,7 @@ class SettingExporter
     setHasManyRelations: (definitions) ->
 
         for modelName, definition of definitions
-            for prop, typeInfo of definition.getEntityPropInfo()
+            for prop, typeInfo of definition.getEntityProps()
                 relModelName = typeInfo.model
                 relModelDefinition = definitions[relModelName]
                 relModelDefinition?.setHasManyRelation(modelName, typeInfo.idPropName)
