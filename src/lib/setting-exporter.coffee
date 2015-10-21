@@ -28,7 +28,7 @@ class SettingExporter
         for EntityModel in @getAllEntityModels()
             modelName = EntityModel.getName()
             try
-                EntityRepository = @facade.getRepository(modelName)
+                EntityRepository = @facade.require(modelName + '-repository')
                 continue if (EntityRepository::) not instanceof LoopbackRepository
             catch e
                 debug('Error in reading repository of %s', modelName)

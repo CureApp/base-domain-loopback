@@ -16,7 +16,7 @@
     "bmp": "cc-bmp"
   },
   "dependencies": {
-    "base-domain": "1.9.6",
+    "base-domain": "2.1.4",
     "coffee-script": "^1.9.3",
     "debug": "^2.2.0",
     "loopback-promised": "1.0.0",

@@ -1,12 +1,13 @@
 
 LoopbackPromised = require 'loopback-promised'
+Facade = require 'base-domain'
 
 ###*
 @class LoopbackDomainFacade
 @extends Facade
 @module base-domain-loopback
 ###
-class LoopbackDomainFacade extends require('base-domain')
+class LoopbackDomainFacade extends Facade
 
     ###*
     constructor

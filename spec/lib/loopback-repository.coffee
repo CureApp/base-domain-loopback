@@ -1,8 +1,6 @@
 
 LoopbackRepository = require('../../src/lib/loopback-repository')
 LoopbackClient     = require('loopback-promised').LoopbackClient
-ResourceClientInterface = require('base-domain').BaseRepository::client.constructor
-
 
 domain = require('../create-facade').create()
 
@@ -48,12 +46,6 @@ describe 'LoopbackRepository', ->
         expect(repo.client).to.have.property 'timeout', 1000
         expect(repo.client).to.have.property 'debug', false
         expect(repo.client).to.have.property 'accessToken', 'abc'
-
-
-    it 'has client, implements interface of ResourceClientInterface', ->
-        repo = domain.createRepository('sample-model')
-        for k, v of new ResourceClientInterface() when typeof v is 'function' and k isnt 'mock'
-            expect(repo.client[k]).to.be.a 'function'
 
 
     describe 'modifyDate', ->

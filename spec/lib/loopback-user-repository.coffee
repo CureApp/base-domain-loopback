@@ -1,14 +1,12 @@
 
 LoopbackUserRepository = require('../../src/lib/loopback-user-repository')
-LoopbackUserClient = require('loopback-promised').LoopbackUserClient
-Promise = require('loopback-promised').Promise
+{ Promise, LoopbackUserClient } = require('loopback-promised')
 
 domain = require('../create-facade').create()
 
 class SampleModel extends domain.constructor.Entity
     @properties:
         date:   @TYPES.DATE
-        parent: @TYPES.MODEL 'parent-model'
 
 class SampleModelRepository extends LoopbackUserRepository
     @modelName: 'sample-model'

@@ -62,9 +62,9 @@ class ModelDefinition
     ###
     getEntityPropInfo: ->
         info = {}
-        propInfo = @EntityModel.getPropInfo()
+        propInfo = @EntityModel.getModelProps()
 
-        for prop in @EntityModel.getEntityProps()
+        for prop in propInfo.entities
             info[prop] = propInfo.dic[prop]
 
         return info

@@ -1,6 +1,5 @@
 
-MasterRepository = require('base-domain').MasterRepository
-Entity = require('base-domain').Entity
+{ BaseAsyncRepository, Entity } = require('base-domain')
 
 moment = require 'moment'
 ###*
@@ -8,7 +7,7 @@ moment = require 'moment'
 @extends MasterRepository
 @module base-domain-loopback
 ###
-class LoopbackRepository extends MasterRepository
+class LoopbackRepository extends BaseAsyncRepository
 
     ###*
     aclType : type of access control list in [loopback-with-admin](https://github.com/cureapp/loopback-with-admin)
@@ -40,8 +39,8 @@ class LoopbackRepository extends MasterRepository
     @param {String}  [options.sessionId] Session ID
     @param {Boolean} [options.debug] shows debug log if true
     ###
-    constructor: (options = {}) ->
-        super()
+    constructor: (options = {}, root) ->
+        super(root)
 
         facade = @getFacade()
         lbModelName = @constructor.lbModelName or @constructor.modelName
@@ -65,7 +64,7 @@ class LoopbackRepository extends MasterRepository
     @return {void}
     ###
     modifyDate: (data) ->
-        for dateProp in @getModelClass().getPropInfo().dateProps
+        for dateProp in @getModelClass().getModelProps().dates
             val = data[dateProp]
             if val?
                 data[dateProp] = moment(val).toISOString()

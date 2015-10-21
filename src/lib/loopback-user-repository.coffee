@@ -15,8 +15,8 @@ class LoopbackUserRepository extends LoopbackRepository
     @param {String}  [options.sessionId] Session ID
     @param {Boolean} [options.debug] shows debug log if true
     ###
-    constructor: (options = {}) ->
-        super(options)
+    constructor: (options = {}, root) ->
+        super(options, root)
         modelName = @constructor.modelName
         @client = @getFacade().lbPromised.createUserClient(modelName, options)
 

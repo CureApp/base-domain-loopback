@@ -36,9 +36,9 @@ describe 'ModelDefinition', ->
 
     before ->
         @Child = domain.getModel('child')
-        @ChildRepository = domain.getRepository('child')
+        @ChildRepository = domain.require('child-repository')
         @Member = domain.getModel('member')
-        @MemberRepository = domain.getRepository('member')
+        @MemberRepository = domain.require('member-repository')
 
     describe 'constructor', ->
 

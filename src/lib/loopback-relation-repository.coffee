@@ -26,19 +26,19 @@ class LoopbackRelationRepository extends LoopbackRepository
     @param {String}  [options.sessionId] Session ID
     @param {Boolean} [options.debug] shows debug log if true
     ###
-    constructor: (options = {}) ->
+    constructor: (options = {}, root) ->
         if not @constructor.belongsTo
             throw new Error """
                 You must set @belongsTo and @foreignKeyName when extending RelationRepository.
             """
 
-        super(options)
+        super(options, root)
 
-        propInfo = @getModelClass().getPropInfo()
+        modelProps = @getModelClass().getModelProps()
         belongsTo = @constructor.belongsTo
-        parentPropType = propInfo.getTypeInfo(belongsTo)
+        parentPropType = modelProps.getTypeInfo(belongsTo)
 
-        if not propInfo.isEntityProp belongsTo
+        if not modelProps.isEntity belongsTo
             throw new Error """
                 "belongsTo" property: #{belongsTo} is not a entity prop.
             """

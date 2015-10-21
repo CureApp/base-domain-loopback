@@ -64,7 +64,7 @@ describe 'LoopbackRelationRepository', ->
 
         it 'returns relClient when it contains foreign key', ->
             repo = domain.createRepository('sample-model')
-            entity = domain.createFactory('sample-model', true).createFromObject
+            entity = domain.createModel 'sample-model',
                 date: '1998-03-21'
                 parent:
                     id: 'pnt'
@@ -74,7 +74,7 @@ describe 'LoopbackRelationRepository', ->
 
         it 'returns client when it does not contain foreign key', ->
             repo = domain.createRepository('sample-model')
-            entity = domain.createFactory('sample-model', true).createFromObject
+            entity = domain.createModel 'sample-model',
                 date: '1998-03-21'
                 parent:
                     name: 'pnt-name'
