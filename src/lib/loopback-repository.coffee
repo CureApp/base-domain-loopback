@@ -4,7 +4,7 @@
 moment = require 'moment'
 ###*
 @class LoopbackRepository
-@extends MasterRepository
+@extends BaseAsyncRepository
 @module base-domain-loopback
 ###
 class LoopbackRepository extends BaseAsyncRepository
@@ -13,11 +13,6 @@ class LoopbackRepository extends BaseAsyncRepository
     aclType : type of access control list in [loopback-with-admin](https://github.com/cureapp/loopback-with-admin)
     ###
     @aclType: 'admin'
-
-    ###*
-    by default, disable storing master table
-    ###
-    @storeMasterTable: off
 
 
     ###*
@@ -38,6 +33,7 @@ class LoopbackRepository extends BaseAsyncRepository
     @param {Object}  [options]
     @param {String}  [options.sessionId] Session ID
     @param {Boolean} [options.debug] shows debug log if true
+    @params {RootInterface} root
     ###
     constructor: (options = {}, root) ->
         super(root)
@@ -55,13 +51,13 @@ class LoopbackRepository extends BaseAsyncRepository
 
         @client = facade.lbPromised.createClient(lbModelName, options)
 
+
     ###*
     convert 'date' type property for loopback format
 
     @method modifyDate
     @private
     @param {Entity|Object} data
-    @return {void}
     ###
     modifyDate: (data) ->
         for dateProp in @getModelClass().getModelProps().dates
@@ -76,8 +72,8 @@ class LoopbackRepository extends BaseAsyncRepository
 
     @method save
     @public
-    @param {Entity} entity
-    @return {Promise(Entity)} entity (different instance from input)
+    @param {Entity|Object} entity
+    @return {Promise(Entity)} entity (the same instance from input, if entity given,)
     ###
     save: (entity) ->
         client = @getClientByEntity(entity)
@@ -85,17 +81,31 @@ class LoopbackRepository extends BaseAsyncRepository
         @modifyDate(entity)
         super(entity, client)
 
+
     ###*
-    get object by ID.
+    get entity by id.
 
     @method get
     @public
-    @param {any} id
+    @param {String|Number} id
+    @param {String} foreignKey
     @return {Promise(Entity)} entity
     ###
     get: (id, foreignKey) ->
         client = @getClientByForeignKey(foreignKey)
         super(id, client)
+
+
+    ###*
+    get entities by id.
+
+    @method getByIds
+    @public
+    @param {Array|(String|Number)} ids
+    @return {Promise(Array(Entity))} entities
+    ###
+    getByIds: (ids) ->
+        @query(where: id: inq: ids)
 
 
     ###*
@@ -175,7 +185,7 @@ class LoopbackRepository extends BaseAsyncRepository
 
     @method getClientByEntity
     @protected
-    @param {Entity} entity
+    @param {Entity|Object} entity
     @return {LoopbackClient} client
     ###
     getClientByEntity: (entity) ->

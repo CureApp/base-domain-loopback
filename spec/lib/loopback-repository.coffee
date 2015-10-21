@@ -22,9 +22,6 @@ describe 'LoopbackRepository', ->
         it 'has aclType, default is "admin"', ->
             expect(LoopbackRepository.aclType).to.equal 'admin'
 
-        it 'has storeMasterTable, off', ->
-            expect(LoopbackRepository.storeMasterTable).to.be.false
-
         it 'has empty lbModelName', ->
             expect(LoopbackRepository.lbModelName).to.equal ''
 

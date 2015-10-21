@@ -62,7 +62,7 @@ class LoopbackRelationRepository extends LoopbackRepository
 
     @method getClientByEntity
     @protected
-    @param {Entity} entity
+    @param {Entity|Object} entity
     @return {LoopbackClient} client
     ###
     getClientByEntity: (entity) ->
