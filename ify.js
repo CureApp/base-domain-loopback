@@ -8,9 +8,12 @@
  */
 
 
-var BaseDomainLoopbackify = require('./dist/base-domain-loopbackify');
-var baseDomainLoopbackify = new BaseDomainLoopbackify()
+var BaseDomainify = require('base-domain/ify').BaseDomainify;
+
+var baseDomainLoopbackify = new BaseDomainify('base-domain-loopback')
 
 module.exports = function(file, options) {
     return baseDomainLoopbackify.run(file, options);
 };
+
+module.exports.BaseDomainify = BaseDomainify

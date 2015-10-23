@@ -1,6 +1,7 @@
 node_modules
 .editorconfig
 spec
+test
 .releaseignore
 .bmp.yml
 npm-debug.log
@@ -8,3 +9,7 @@ npm-debug.log
 Gruntfile.coffee
 README.litcoffee
 circle.yml
+
+
+# master data
+all.json

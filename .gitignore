@@ -19,3 +19,9 @@ node_modules
 npm-debug.log
 dist
 doc
+
+# master data
+all.json
+
+# test
+!test/base-domainify/node_modules
