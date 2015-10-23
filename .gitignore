@@ -24,4 +24,5 @@ doc
 all.json
 
 # test
-!test/base-domainify/node_modules
+!test/base-domain-loopbackify/node_modules
+test/base-domain-loopbackify/packed.js
