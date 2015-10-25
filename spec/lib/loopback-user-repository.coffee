@@ -1,28 +1,31 @@
 
-LoopbackUserRepository = require('../../src/lib/loopback-user-repository')
+{ LoopbackUserRepository, Entity } = require('../base-domain-loopback')
 { Promise, LoopbackUserClient } = require('loopback-promised')
-
-domain = require('../create-facade').create()
-
-class SampleModel extends domain.constructor.Entity
-    @properties:
-        date:   @TYPES.DATE
-
-class SampleModelRepository extends LoopbackUserRepository
-    @modelName: 'sample-model'
-
-domain.addClass('sample-model', SampleModel)
-domain.addClass('sample-model-repository', SampleModelRepository)
 
 
 describe 'LoopbackUserClient', ->
 
+    beforeEach ->
+
+        @domain = require('../create-facade').create()
+
+        class SampleModel extends Entity
+            @properties:
+                date:   @TYPES.DATE
+
+        class SampleModelRepository extends LoopbackUserRepository
+            @modelName: 'sample-model'
+
+        @domain.addClass(SampleModel)
+        @domain.addClass(SampleModelRepository)
+
+
     it 'has client, instance of LoopbackUserClient', ->
-        repo = domain.createRepository('sample-model')
+        repo = @domain.createRepository('sample-model')
         expect(repo.client).to.be.instanceof LoopbackUserClient
 
     it 'has client, instance of LoopbackUserClient with custom options', ->
-        repo = domain.createRepository('sample-model', timeout: 100)
+        repo = @domain.createRepository('sample-model', timeout: 100)
         expect(repo.client).to.be.instanceof LoopbackUserClient
         expect(repo.client).to.have.property 'timeout', 100
 
@@ -52,7 +55,7 @@ describe 'LoopbackUserClient', ->
 
     describe 'confirm', ->
         it 'returns boolean, depends on success of login, logout', (done) ->
-            repo = domain.createRepository('sample-model')
+            repo = @domain.createRepository('sample-model')
             repo.login  = -> Promise.resolve {}
             repo.logout = -> Promise.resolve {}
             repo.confirm().then (result) ->

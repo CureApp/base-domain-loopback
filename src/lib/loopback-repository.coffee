@@ -60,7 +60,8 @@ class LoopbackRepository extends BaseAsyncRepository
     @param {Entity|Object} data
     ###
     modifyDate: (data) ->
-        for dateProp in @getModelClass().getModelProps().dates
+        modelProps = @getFacade().getModelProps(@getModelName())
+        for dateProp in modelProps.dates
             val = data[dateProp]
             if val?
                 data[dateProp] = moment(val).toISOString()

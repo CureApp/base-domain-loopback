@@ -9,7 +9,7 @@ loopback model definition of one entity
 ###
 class ModelDefinition
 
-    constructor: (@EntityModel, @LoopbackRepository) ->
+    constructor: (@EntityModel, @LoopbackRepository, @facade) ->
 
         @definition =
             aclType     : @LoopbackRepository.aclType
@@ -78,7 +78,7 @@ class ModelDefinition
     ###
     getEntityProps: ->
         info = {}
-        modelProps = @EntityModel.getModelProps()
+        modelProps = @facade.getModelProps(@EntityModel.getName())
 
         for prop in modelProps.entities
             info[prop] = modelProps.dic[prop]

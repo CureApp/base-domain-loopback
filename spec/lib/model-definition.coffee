@@ -1,55 +1,59 @@
 
 ModelDefinition = require '../../src/lib/model-definition'
+Facade = require '../base-domain-loopback'
 
-domain = require('../create-facade').create()
-Facade = domain.constructor
-
-class Child extends Facade.Entity
-    @belongsTo: 'pnt'
-    @properties: pnt: @TYPES.MODEL 'parent'
-
-class Parent extends Facade.Entity
-class Member extends Facade.Entity
-
-class ChildRepository  extends Facade.LoopbackRelationRepository
-    @aclType: 'public-read'
-
-class ParentRepository extends Facade.LoopbackRepository
-
-class NonEntity extends Facade.BaseModel
-class NonLoopback extends Facade.Entity
-class NonLoopbackRepository extends Facade.BaseRepository
-class MemberRepository extends Facade.LoopbackUserRepository
-
-domain.addClass('child', Child)
-domain.addClass('parent', Parent)
-domain.addClass('member', Member)
-domain.addClass('child-repository', ChildRepository)
-domain.addClass('parent-repository', ParentRepository)
-domain.addClass('non-entity', NonEntity)
-domain.addClass('non-loopback', NonLoopback)
-domain.addClass('non-loopback-repository', NonLoopbackRepository)
-domain.addClass('member-repository', MemberRepository)
-
+{ Entity, LoopbackRepository, LoopbackUserRepository,
+LoopbackRelationRepository, BaseModel, BaseRepository } = Facade
 
 describe 'ModelDefinition', ->
 
-    before ->
-        @Child = domain.getModel('child')
-        @ChildRepository = domain.require('child-repository')
-        @Member = domain.getModel('member')
-        @MemberRepository = domain.require('member-repository')
+    beforeEach ->
+
+        @domain = require('../create-facade').create()
+
+        class Child extends Entity
+            @belongsTo: 'pnt'
+            @properties: pnt: @TYPES.MODEL 'parent'
+
+        class Parent extends Entity
+        class Member extends Entity
+
+        class ChildRepository  extends LoopbackRelationRepository
+            @aclType: 'public-read'
+
+        class ParentRepository extends LoopbackRepository
+
+        class NonEntity extends BaseModel
+        class NonLoopback extends Entity
+        class NonLoopbackRepository extends BaseRepository
+        class MemberRepository extends LoopbackUserRepository
+
+        @domain.addClass(Child)
+        @domain.addClass(Parent)
+        @domain.addClass(Member)
+        @domain.addClass(ChildRepository)
+        @domain.addClass(ParentRepository)
+        @domain.addClass(NonEntity)
+        @domain.addClass(NonLoopback)
+        @domain.addClass(NonLoopbackRepository)
+        @domain.addClass(MemberRepository)
+
+        @Child = Child
+        @ChildRepository = ChildRepository
+        @Member = Member
+        @MemberRepository = MemberRepository
+
 
     describe 'constructor', ->
 
         it 'contains definition', ->
-            def = new ModelDefinition(@Child, @ChildRepository)
+            def = new ModelDefinition(@Child, @ChildRepository, @domain)
 
             expect(def.definition).to.be.an 'object'
 
     describe 'definition', ->
         before ->
-            @defObj = new ModelDefinition(@Child, @ChildRepository).definition
+            @defObj = new ModelDefinition(@Child, @ChildRepository, @domain).definition
 
         it 'contains aclType, the same as repository\'s aclType', ->
             expect(@defObj).to.have.property 'aclType', 'public-read'
@@ -81,38 +85,38 @@ describe 'ModelDefinition', ->
     describe 'getName', ->
 
         it 'returns name of the entity model', ->
-            def = new ModelDefinition(@Child, @ChildRepository)
+            def = new ModelDefinition(@Child, @ChildRepository, @domain)
             expect(def.getName()).to.equal 'child'
 
 
     describe 'getPluralName', ->
 
         it 'returns plural name of the entity model', ->
-            def = new ModelDefinition(@Child, @ChildRepository)
+            def = new ModelDefinition(@Child, @ChildRepository, @domain)
             expect(def.getPluralName()).to.equal 'child'
 
     describe 'getBase', ->
 
         it 'returns "PersistedModel" if entity model isnt child class of LoopbackUserRepository', ->
-            def = new ModelDefinition(@Child, @ChildRepository)
+            def = new ModelDefinition(@Child, @ChildRepository, @domain)
             expect(def.getBase()).to.equal 'PersistedModel'
 
 
         it 'returns "User" if entity model isnt child class of LoopbackUserRepository', ->
-            def = new ModelDefinition(@Member, @MemberRepository)
+            def = new ModelDefinition(@Member, @MemberRepository, @domain)
             expect(def.getBase()).to.equal 'User'
 
     describe 'export', ->
 
         it 'returns definition object', ->
-            def = new ModelDefinition(@Child, @ChildRepository)
+            def = new ModelDefinition(@Child, @ChildRepository, @domain)
             expect(def.export()).to.equal def.definition
 
 
     describe 'getEntityProps', ->
 
         it 'returns typeInfo of the sub-entities', ->
-            def = new ModelDefinition(@Child, @ChildRepository)
+            def = new ModelDefinition(@Child, @ChildRepository, @domain)
             expect(def.getEntityProps()).to.have.property 'pnt'
             expect(def.getEntityProps().pnt).to.have.property 'model', 'parent'
 
@@ -121,7 +125,7 @@ describe 'ModelDefinition', ->
 
         it 'returns "belongsTo" relations', ->
 
-            rels = new ModelDefinition(@Child, @ChildRepository).getBelongsToRelations()
+            rels = new ModelDefinition(@Child, @ChildRepository, @domain).getBelongsToRelations()
 
             expect(rels).to.have.property 'pnt'
             expect(rels.pnt).to.have.property 'type', 'belongsTo'
@@ -133,7 +137,7 @@ describe 'ModelDefinition', ->
 
         it 'set "hasMany" relations to definition object', ->
 
-            def = new ModelDefinition(@Child, @ChildRepository)
+            def = new ModelDefinition(@Child, @ChildRepository, @domain)
             def.setHasManyRelation('xxx', 'xxxId')
 
             rels = def.definition.relations

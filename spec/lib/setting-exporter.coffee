@@ -1,17 +1,15 @@
 
 
 SettingExporter = require '../../src/lib/setting-exporter'
-
-domain = require('../create-facade').create(dirname: __dirname + '/../domains/music-live')
-
-Facade = domain.constructor
-
+Facade = require '../base-domain-loopback'
 
 describe 'SettingExporter', ->
 
-    before ->
+    beforeEach ->
 
-        @result = new SettingExporter(domain).export()
+        @domain = require('../create-facade').create(dirname: __dirname + '/../domains/music-live')
+        @result = new SettingExporter(@domain).export()
+
 
     describe 'export', ->
 
@@ -45,7 +43,7 @@ describe 'SettingExporter', ->
     describe 'getAllEntityModels', ->
 
         it 'returns all entity models registered in the domain', ->
-            classes = new SettingExporter(domain).getAllEntityModels()
+            classes = new SettingExporter(@domain).getAllEntityModels()
 
             expect(classes.length).to.equal 4
 

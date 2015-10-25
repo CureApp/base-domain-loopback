@@ -1,21 +1,25 @@
 
-LoopbackRepository = require('../../src/lib/loopback-repository')
-LoopbackClient     = require('loopback-promised').LoopbackClient
-
-domain = require('../create-facade').create()
-
-class SampleModel extends domain.constructor.Entity
-    @properties:
-        date:   @TYPES.DATE
-
-class SampleModelRepository extends LoopbackRepository
-    @modelName: 'sample-model'
-
-domain.addClass('sample-model', SampleModel)
-domain.addClass('sample-model-repository', SampleModelRepository)
+{ LoopbackRepository } = require('../base-domain-loopback')
+{ LoopbackClient } = require('loopback-promised')
 
 
 describe 'LoopbackRepository', ->
+
+
+    beforeEach ->
+
+        @domain = require('../create-facade').create()
+
+        class SampleModel extends @domain.constructor.Entity
+            @properties:
+                date:   @TYPES.DATE
+
+        class SampleModelRepository extends LoopbackRepository
+            @modelName: 'sample-model'
+
+        @domain.addClass('sample-model', SampleModel)
+        @domain.addClass('sample-model-repository', SampleModelRepository)
+
 
     describe ',about class properties,', ->
 
@@ -27,7 +31,7 @@ describe 'LoopbackRepository', ->
 
 
     it 'has client, instance of LoopbackClient', ->
-        repo = domain.createRepository('sample-model')
+        repo = @domain.createRepository('sample-model')
         expect(repo.client).to.be.instanceof LoopbackClient
         expect(repo.client).not.to.have.property 'timeout'
 
@@ -38,7 +42,7 @@ describe 'LoopbackRepository', ->
             debug: false
             accessToken: 'abc'
 
-        repo = domain.createRepository('sample-model', options)
+        repo = @domain.createRepository('sample-model', options)
         expect(repo.client).to.be.instanceof LoopbackClient
         expect(repo.client).to.have.property 'timeout', 1000
         expect(repo.client).to.have.property 'debug', false
@@ -49,7 +53,7 @@ describe 'LoopbackRepository', ->
         it 'convert date properties to valid date format', ->
             data =
                 date : '1986-03-10'
-            domain.createRepository('sample-model').modifyDate(data)
+            @domain.createRepository('sample-model').modifyDate(data)
             expect(data.date).to.match /1986-03-\d{2}T\d{2}:\d{2}:00\.000Z/
 
 
@@ -81,25 +85,25 @@ describe 'LoopbackRepository', ->
     #     super(id, data, client)
     describe 'getClientByEntity', ->
         it 'returns @client', ->
-            repo = domain.createRepository('sample-model')
+            repo = @domain.createRepository('sample-model')
             expect(repo.getClientByEntity()).to.equal repo.client
 
 
     describe 'getClientByForeignKey', ->
         it 'returns @client', ->
-            repo = domain.createRepository('sample-model')
+            repo = @domain.createRepository('sample-model')
             expect(repo.getClientByForeignKey()).to.equal repo.client
 
 
     describe 'getClientByQuery', ->
         it 'returns @client', ->
-            repo = domain.createRepository('sample-model')
+            repo = @domain.createRepository('sample-model')
             expect(repo.getClientByQuery()).to.equal repo.client
 
 
     describe 'parseSessionId', ->
         it 'split sessionId into accessToken and userId', ->
-            repo = domain.createRepository('sample-model')
+            repo = @domain.createRepository('sample-model')
             [ sessionId, userId ] = repo.parseSessionId('sessionId/userId')
             expect(sessionId).to.equal 'sessionId'
             expect(userId).to.equal 'userId'

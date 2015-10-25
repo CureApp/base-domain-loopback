@@ -44,7 +44,7 @@ class SettingExporter
                 debug(e.stack)
                 continue
 
-            definitions[modelName] = new ModelDefinition(EntityModel, EntityRepository)
+            definitions[modelName] = new ModelDefinition(EntityModel, EntityRepository, @facade)
 
         @setHasManyRelations(definitions)
 
