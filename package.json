@@ -3,6 +3,9 @@
   "version": "2.0.1",
   "description": "## creates custom model-definitions for loopback-with-admin",
   "main": "dist/lib/loopback-domain-facade.js",
+  "bin": {
+    "bd-create-master": "bin/create-master-json"
+  },
   "scripts": {
     "test": "grunt && grunt build && npm run base-domain-loopbackify-test",
     "base-domain-loopbackify-test": "cd test/base-domain-loopbackify; ./test.sh; cd ../..",
@@ -17,7 +20,7 @@
     "bmp": "cc-bmp"
   },
   "dependencies": {
-    "base-domain": "3.0.3",
+    "base-domain": "3.0.4",
     "coffee-script": "^1.9.3",
     "debug": "^2.2.0",
     "loopback-promised": "1.0.0",
