@@ -92,6 +92,7 @@ class SettingExporter
         for filename in domainFiles
             try
                 [ name, ext ] = filename.split '.'
+                continue if ext not in ['coffee', 'js']
                 @facade.require name
             catch e
                 debug('Error in reading file: %s', filename)
