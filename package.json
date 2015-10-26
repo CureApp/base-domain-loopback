@@ -36,7 +36,7 @@
     "grunt-contrib-uglify": "^0.9.1",
     "grunt-contrib-yuidoc": "^0.7.0",
     "grunt-mocha-chai-sinon": "0.0.9",
-    "loopback-with-admin": "1.5.4",
+    "loopback-with-admin": "1.7.1",
     "node-circleci-autorelease": "^1.5.6"
   },
   "repository": {
