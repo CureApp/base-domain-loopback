@@ -94,8 +94,8 @@ class LoopbackRelationRepository extends LoopbackRepository
     @param {Object} query
     @return {LoopbackClient} client
     ###
-    getClientByQuery: (query) ->
-        foreignKey = query?.where?[@foreignKeyName]
+    getClientByQuery: (query = {}) ->
+        foreignKey = query.foreignKey ? query.where?[@foreignKeyName]
         if typeof foreignKey isnt 'object'
             @getClientByForeignKey(foreignKey)
         else

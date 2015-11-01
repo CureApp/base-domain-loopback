@@ -148,11 +148,11 @@ class LoopbackUserRepository extends LoopbackRepository
     @param {Entity|Object} entity
     @return {Promise(Entity)} entity (the same instance from input, if entity given,)
     ###
-    save: (entity) ->
+    save: (entity, options) ->
 
         password = entity?.password
 
-        super(entity).then (result) =>
+        super(entity, options).then (result) =>
 
             result.password = password
 

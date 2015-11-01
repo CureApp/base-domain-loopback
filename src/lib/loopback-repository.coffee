@@ -74,13 +74,14 @@ class LoopbackRepository extends BaseAsyncRepository
     @method save
     @public
     @param {Entity|Object} entity
+    @param {Object} [options]
     @return {Promise(Entity)} entity (the same instance from input, if entity given,)
     ###
-    save: (entity) ->
-        client = @getClientByEntity(entity)
+    save: (entity, options = {}) ->
+        options.client ?= @getClientByEntity(entity)
 
         @modifyDate(entity)
-        super(entity, client)
+        super(entity, options)
 
 
     ###*
@@ -89,12 +90,13 @@ class LoopbackRepository extends BaseAsyncRepository
     @method get
     @public
     @param {String|Number} id
-    @param {String} foreignKey
+    @param {Object} [options]
+    @param {String} [options.foreignKey]
     @return {Promise(Entity)} entity
     ###
-    get: (id, foreignKey) ->
-        client = @getClientByForeignKey(foreignKey)
-        super(id, client)
+    get: (id, options = {}) ->
+        options.client ?= @getClientByForeignKey(options.foreignKey)
+        super(id, options)
 
 
     ###*
@@ -103,10 +105,11 @@ class LoopbackRepository extends BaseAsyncRepository
     @method getByIds
     @public
     @param {Array|(String|Number)} ids
+    @param {Object} [options]
     @return {Promise(Array(Entity))} entities
     ###
-    getByIds: (ids) ->
-        @query(where: id: inq: ids)
+    getByIds: (ids, options) ->
+        @query(where: { id: inq: ids }, options)
 
 
     ###*
@@ -115,11 +118,12 @@ class LoopbackRepository extends BaseAsyncRepository
     @method query
     @public
     @param {Object} [params] query parameters
+    @param {Object} [options]
     @return {Promise(Array(Entity))} array of entities
     ###
-    query: (params) ->
-        client = @getClientByQuery(params)
-        super(params, client)
+    query: (params, options = {}) ->
+        options.client ?= @getClientByQuery(params)
+        super(params, options)
 
 
     ###*
@@ -128,11 +132,12 @@ class LoopbackRepository extends BaseAsyncRepository
     @method singleQuery
     @public
     @param {Object} [params] query parameters
+    @param {Object} [options]
     @return {Promise(Entity)} entity
     ###
-    singleQuery: (params) ->
-        client = @getClientByQuery(params)
-        super(params, client)
+    singleQuery: (params, options = {}) ->
+        options.client ?= @getClientByQuery(params)
+        super(params, options)
 
 
 
@@ -142,11 +147,12 @@ class LoopbackRepository extends BaseAsyncRepository
     @method delete
     @public
     @param {Entity} entity
+    @param {Object} [options]
     @return {Promise(Boolean)} isDeleted
     ###
-    delete: (entity) ->
-        client = @getClientByEntity(entity)
-        super(entity, client)
+    delete: (entity, options = {}) ->
+        options.client ?= @getClientByEntity(entity)
+        super(entity, options)
 
 
     ###*
@@ -156,12 +162,13 @@ class LoopbackRepository extends BaseAsyncRepository
     @public
     @param {any} id id of the entity to update
     @param {Object} data key-value pair to update
+    @param {Object} [options]
     @return {Promise(Entity)} updated entity
     ###
-    update: (id, data) ->
-        client = @getClientByEntity(data) # FIXME fails if data doesnt contain foreign key
+    update: (id, data, options = {}) ->
+        options.client ?= @getClientByEntity(data) # FIXME fails if data doesnt contain foreign key
         @modifyDate(data)
-        super(id, data, client)
+        super(id, data, options)
 
 
 
