@@ -20,7 +20,7 @@
     "bmp": "cc-bmp"
   },
   "dependencies": {
-    "base-domain": "3.3.0",
+    "base-domain": "3.3.1",
     "coffee-script": "^1.9.3",
     "debug": "^2.2.0",
     "loopback-promised": "1.0.0",

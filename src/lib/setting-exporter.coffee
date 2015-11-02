@@ -37,20 +37,29 @@ class SettingExporter
             modelName = EntityModel.getName()
             try
                 EntityRepository = @facade.require(modelName + '-repository')
-                continue if (EntityRepository::) not instanceof LoopbackRepository
+                if (EntityRepository::) not instanceof LoopbackRepository
+                    debug('%s is not instance of LoopbackRepository', modelName + '-repository')
+                    continue
             catch e
-                debug('Error in reading repository of %s', modelName)
-                debug(e.message)
-                debug(e.stack)
+                if e.message.match /model .*? is not found/
+                    debug('%s does not have Repository', modelName)
+                else
+                    debug('Error in reading repository of %s', modelName)
+                    debug(e.message)
+                    debug(e.stack)
                 continue
 
             lbModelName = EntityRepository.getLbModelName()
+
+            debug('model "%s" is added to model definition (loopback name: "%s")', modelName, lbModelName)
 
             definitions[lbModelName] = new ModelDefinition(EntityModel, EntityRepository, @facade)
 
         @setHasManyRelations(definitions)
 
         definitions[name] = definition.export() for name, definition of definitions
+
+        debug('models for loopback: %s', Object.keys(definitions).join(', '))
 
         return definitions
 
