@@ -16,8 +16,8 @@ describe 'LoopbackUserClient', ->
         class SampleModelRepository extends LoopbackUserRepository
             @modelName: 'sample-model'
 
-        @domain.addClass(SampleModel)
-        @domain.addClass(SampleModelRepository)
+        @domain.addClass('sample-model', SampleModel)
+        @domain.addClass('sample-model-repository', SampleModelRepository)
 
 
     it 'has client, instance of LoopbackUserClient', ->

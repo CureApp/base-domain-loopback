@@ -22,9 +22,9 @@ describe 'LoopbackRelationRepository', ->
             @modelName: 'sample-model'
             @belongsTo: 'parent'
 
-        @domain.addClass(SampleModel)
-        @domain.addClass(ParentModel)
-        @domain.addClass(SampleModelRepository)
+        @domain.addClass('sample-model', SampleModel)
+        @domain.addClass('parent-model', ParentModel)
+        @domain.addClass('sample-model-repository', SampleModelRepository)
 
 
 
@@ -35,7 +35,7 @@ describe 'LoopbackRelationRepository', ->
     it 'cannot be created when "belongsTo" is not set', ->
         class Repo extends LoopbackRelationRepository
             @modelName: 'sample-model'
-        @domain.addClass(Repo)
+        @domain.addClass('sample-model-repository', Repo)
 
         expect(=> new Repo({}, @domain)).to.throw 'You must set @belongsTo and @foreignKeyName when extending RelationRepository.'
 
@@ -45,7 +45,7 @@ describe 'LoopbackRelationRepository', ->
             @modelName: 'sample-model'
             @belongsTo: 'parent-model'
 
-        @domain.addClass(Repo)
+        @domain.addClass('sample-model-repository', Repo)
 
         expect(=> new Repo({}, @domain)).to.throw '"belongsTo" property: parent-model is not an entity prop.'
 

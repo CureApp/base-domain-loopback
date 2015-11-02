@@ -28,15 +28,15 @@ describe 'ModelDefinition', ->
         class NonLoopbackRepository extends BaseRepository
         class MemberRepository extends LoopbackUserRepository
 
-        @domain.addClass(Child)
-        @domain.addClass(Parent)
-        @domain.addClass(Member)
-        @domain.addClass(ChildRepository)
-        @domain.addClass(ParentRepository)
-        @domain.addClass(NonEntity)
-        @domain.addClass(NonLoopback)
-        @domain.addClass(NonLoopbackRepository)
-        @domain.addClass(MemberRepository)
+        @domain.addClass('child', Child)
+        @domain.addClass('parent', Parent)
+        @domain.addClass('member', Member)
+        @domain.addClass('child-repository', ChildRepository)
+        @domain.addClass('parent-repository', ParentRepository)
+        @domain.addClass('non-entity', NonEntity)
+        @domain.addClass('non-loopback', NonLoopback)
+        @domain.addClass('non-loopback-repository', NonLoopbackRepository)
+        @domain.addClass('member-repository', MemberRepository)
 
         @Child = Child
         @ChildRepository = ChildRepository
