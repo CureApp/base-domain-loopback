@@ -19,9 +19,13 @@ describe 'ModelDefinition', ->
         class Member extends Entity
 
         class ChildRepository  extends LoopbackRelationRepository
+            @modelName: 'child'
+            @lbModelName: 'cld'
             @aclType: 'public-read'
 
         class ParentRepository extends LoopbackRepository
+            @modelName: 'parent'
+            @lbModelName: 'loopback-parent'
 
         class NonEntity extends BaseModel
         class NonLoopback extends Entity
@@ -58,11 +62,11 @@ describe 'ModelDefinition', ->
         it 'contains aclType, the same as repository\'s aclType', ->
             expect(@defObj).to.have.property 'aclType', 'public-read'
 
-        it 'contains name, the same as Entity\'s name', ->
-            expect(@defObj).to.have.property 'name', @Child.getName()
+        it 'contains name, the same as LoopbackRepository.getLbModelName()', ->
+            expect(@defObj).to.have.property 'name', 'cld'
 
-        it 'contains plural name, the same as Entity\'s name', ->
-            expect(@defObj).to.have.property 'plural', @Child.getName()
+        it 'contains plural name, the same as "name"', ->
+            expect(@defObj).to.have.property 'plural', 'cld'
 
         it 'contains base = PersistedModel', ->
             expect(@defObj).to.have.property 'base', 'PersistedModel'
@@ -86,14 +90,14 @@ describe 'ModelDefinition', ->
 
         it 'returns name of the entity model', ->
             def = new ModelDefinition(@Child, @ChildRepository, @domain)
-            expect(def.getName()).to.equal 'child'
+            expect(def.getName()).to.equal 'cld'
 
 
     describe 'getPluralName', ->
 
         it 'returns plural name of the entity model', ->
             def = new ModelDefinition(@Child, @ChildRepository, @domain)
-            expect(def.getPluralName()).to.equal 'child'
+            expect(def.getPluralName()).to.equal 'cld'
 
     describe 'getBase', ->
 
@@ -129,7 +133,7 @@ describe 'ModelDefinition', ->
 
             expect(rels).to.have.property 'pnt'
             expect(rels.pnt).to.have.property 'type', 'belongsTo'
-            expect(rels.pnt).to.have.property 'model', 'parent'
+            expect(rels.pnt).to.have.property 'model', 'loopback-parent'
             expect(rels.pnt).to.have.property 'foreignKey', 'parentId'
 
 

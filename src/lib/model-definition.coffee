@@ -1,4 +1,5 @@
 
+LoopbackRepository = require './loopback-repository'
 LoopbackUserRepository = require './loopback-user-repository'
 
 ###*
@@ -27,10 +28,10 @@ class ModelDefinition
 
     @method getName
     @public
-    @return {String} modelName
+    @return {String} lbModelName
     ###
     getName: ->
-        @EntityModel.getName()
+        @LoopbackRepository.getLbModelName()
 
 
     ###*
@@ -38,10 +39,10 @@ class ModelDefinition
 
     @method getPluralName
     @private
-    @return {String} modelName
+    @return {String} lbModelName
     ###
     getPluralName: ->
-        return @EntityModel.getName()
+        @LoopbackRepository.getLbModelName()
 
 
     ###*
@@ -50,7 +51,7 @@ class ModelDefinition
 
     @method getName
     @public
-    @return {String} modelName
+    @return {String}
     ###
     getBase: ->
         if (@LoopbackRepository::) instanceof LoopbackUserRepository
@@ -95,9 +96,16 @@ class ModelDefinition
         rels = {}
         for prop, typeInfo of @getEntityProps()
 
+            relModelProps = @facade.getModelProps(typeInfo.model)
+
+            Repo = @facade.require(typeInfo.model + '-repository')
+            continue if (Repo::) not instanceof LoopbackRepository
+
+            relLbModelName = Repo.getLbModelName()
+
             rels[prop] =
                 type       : 'belongsTo'
-                model      : typeInfo.model
+                model      : relLbModelName
                 foreignKey : typeInfo.idPropName
 
         return rels
@@ -107,16 +115,16 @@ class ModelDefinition
     set "hasMany" relations
 
     @method setHasManyRelation
-    @param {String} relModel
+    @param {String} relLbModelName
     @param {String} idPropName foreignKey
     ###
-    setHasManyRelation: (relModel, idPropName) ->
+    setHasManyRelation: (relLbModelName, idPropName) ->
         rel =
             type       : 'hasMany'
-            model      : relModel
+            model      : relLbModelName
             foreignKey : idPropName
 
-        @definition.relations[relModel] = rel
+        @definition.relations[relLbModelName] = rel
 
 
 module.exports = ModelDefinition

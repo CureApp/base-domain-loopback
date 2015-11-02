@@ -39,7 +39,9 @@ class LoopbackRepository extends BaseAsyncRepository
         super(root)
 
         facade = @getFacade()
-        lbModelName = @constructor.lbModelName or @constructor.modelName
+
+
+        lbModelName = @constructor.getLbModelName()
 
         sessionId = options.sessionId or facade.sessionId
 
@@ -50,6 +52,16 @@ class LoopbackRepository extends BaseAsyncRepository
         options.timeout     ?= facade.timeout
 
         @client = facade.lbPromised.createClient(lbModelName, options)
+
+
+    ###*
+    get model name used in LoopBack
+    @method getLbModelName
+    @static
+    @return {String}
+    ###
+    @getLbModelName: ->
+        @lbModelName or @modelName
 
 
     ###*

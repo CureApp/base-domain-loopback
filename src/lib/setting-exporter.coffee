@@ -44,7 +44,9 @@ class SettingExporter
                 debug(e.stack)
                 continue
 
-            definitions[modelName] = new ModelDefinition(EntityModel, EntityRepository, @facade)
+            lbModelName = EntityRepository.getLbModelName()
+
+            definitions[lbModelName] = new ModelDefinition(EntityModel, EntityRepository, @facade)
 
         @setHasManyRelations(definitions)
 
@@ -60,11 +62,11 @@ class SettingExporter
     ###
     setHasManyRelations: (definitions) ->
 
-        for modelName, definition of definitions
+        for lbModelName, definition of definitions
             for prop, typeInfo of definition.getEntityProps()
                 relModelName = typeInfo.model
                 relModelDefinition = definitions[relModelName]
-                relModelDefinition?.setHasManyRelation(modelName, typeInfo.idPropName)
+                relModelDefinition?.setHasManyRelation(lbModelName, typeInfo.idPropName)
 
 
     ###*
