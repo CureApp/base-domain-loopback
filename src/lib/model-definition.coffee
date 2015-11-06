@@ -98,8 +98,11 @@ class ModelDefinition
 
             relModelProps = @facade.getModelProps(typeInfo.model)
 
-            Repo = @facade.require(typeInfo.model + '-repository')
-            continue if (Repo::) not instanceof LoopbackRepository
+            try
+                Repo = @facade.require(typeInfo.model + '-repository')
+                continue if (Repo::) not instanceof LoopbackRepository
+            catch e
+                continue # skip if repository is not found
 
             relLbModelName = Repo.getLbModelName()
 
