@@ -22,8 +22,10 @@ class SettingExporter
     1. load all the entities
     2. check each entity's repository is LoopbackRepository
     3. create ModelDefinition
-    4. add "hasMany" Relations
-    5. return object
+    4. add "hasMany" relations
+    5. add "hasManyThrough" relations
+    6. add custom relations
+    7. return object
 
     @method export
     @public
@@ -56,8 +58,11 @@ class SettingExporter
             definitions[lbModelName] = new ModelDefinition(EntityModel, EntityRepository, @facade)
 
         @setHasManyRelations(definitions)
+        @setHasManyThroughRelation(definitions)
 
-        definitions[name] = definition.export() for name, definition of definitions
+        for name, definition of definitions
+            definition.addCustomRelations()
+            definitions[name] = definition.export()
 
         debug('models for loopback: %s', Object.keys(definitions).join(', '))
 
@@ -73,9 +78,61 @@ class SettingExporter
 
         for lbModelName, definition of definitions
             for prop, typeInfo of definition.getEntityProps()
-                relModelName = typeInfo.model
-                relModelDefinition = definitions[relModelName]
+                relLbModelName = @getLbModelName(typeInfo.model)
+                continue if not relLbModelName
+                relModelDefinition = definitions[relLbModelName]
                 relModelDefinition?.setHasManyRelation(lbModelName, typeInfo.idPropName)
+
+
+    ###*
+    set "hasManyThrough" relations
+
+    @private
+    ###
+    setHasManyThroughRelation: (definitions) ->
+
+        for lbModelName, definition of definitions
+            lbEntityProps = {}
+            for prop, typeInfo of definition.getEntityProps()
+
+                if @getLbModelName(typeInfo.model)
+                    lbEntityProps[prop] = typeInfo
+
+            props = Object.keys(lbEntityProps)
+
+            for propA, i in props
+                propB = props[i + 1]
+                break if not propB?
+
+                typeInfoA = lbEntityProps[propA]
+                typeInfoB = lbEntityProps[propB]
+
+                modelA = @getLbModelName(typeInfoA.model)
+                modelB = @getLbModelName(typeInfoB.model)
+
+                defA = definitions[modelA]
+                defB = definitions[modelA]
+
+                defA.setHasManyThroughRelation
+                    model: modelB
+                    foreignKey: typeInfoA.idPropName
+                    keyThrough: typeInfoB.idPropName
+                    through: lbModelName
+
+                defB.setHasManyThroughRelation
+                    model: modelA
+                    foreignKey: typeInfoB.idPropName
+                    keyThrough: typeInfoA.idPropName
+                    through: lbModelName
+
+
+    getLbModelName: (modelName) ->
+        try
+            Repo = @facade.require(modelName + '-repository')
+            return null if (Repo::) not instanceof LoopbackRepository
+            return Repo.getLbModelName()
+        catch e
+            return null
 
 
     ###*

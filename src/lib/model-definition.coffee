@@ -2,6 +2,8 @@
 LoopbackRepository = require './loopback-repository'
 LoopbackUserRepository = require './loopback-user-repository'
 
+relationName = require './relation-name'
+
 ###*
 loopback model definition of one entity
 
@@ -127,7 +129,45 @@ class ModelDefinition
             model      : relLbModelName
             foreignKey : idPropName
 
-        @definition.relations[relLbModelName] = rel
+        relName = relationName(rel)
+        @definition.relations[relName] = rel
+
+        @definition.relations[relLbModelName] = rel # for backward compatibility
+
+    ###*
+    set "hasManyThrough" relations
+
+    @method setHasManyThroughRelation
+    @param {String} relLbModelName
+    @param {String} idPropName foreignKey
+    ###
+    setHasManyThroughRelation: (params = {}) ->
+
+        relName = relationName(params)
+
+        { model, foreignKey, keyThrough, through } = params
+
+        @definition.relations[relName] =
+            type       : 'hasMany'
+            model      : model
+            foreignKey : foreignKey
+            keyThrough : keyThrough
+            through    : through
+
+
+
+    addCustomRelations: ->
+
+        return if not @LoopbackRepository.hasMany?
+
+        for relName, params of @LoopbackRepository.hasMany
+
+            params = JSON.parse JSON.stringify params
+
+            params.type = 'hasMany'
+
+            @definition.relations[relName] = params
+
 
 
 module.exports = ModelDefinition

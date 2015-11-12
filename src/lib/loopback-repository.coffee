@@ -2,6 +2,8 @@
 { BaseAsyncRepository, Entity } = require('base-domain')
 
 moment = require 'moment'
+relationName = require './relation-name'
+
 ###*
 @class LoopbackRepository
 @extends BaseAsyncRepository
@@ -142,6 +144,10 @@ class LoopbackRepository extends BaseAsyncRepository
     @return {Promise(Array(Entity))} array of entities
     ###
     query: (params, options = {}) ->
+
+        if params.relation and not options.relation
+            options.relation = params.relation
+
         if not options.client and options.relation
             options.client = @getRelatedClient(options.relation)
         else
@@ -230,44 +236,49 @@ class LoopbackRepository extends BaseAsyncRepository
     @protected
     @param {Object} params
     @param {String} params.modelName foreign model name
-    @param {String} params.foreignId foreign id
-    @param {String} [params.relation] relation name. If not set, this model name.
+    @param {String} params.id foreign id
+    @param {String} [params.relation] relation name
+    @param {String} [params.foreignKey] foreign key prop.
+    @param {String} [params.through]
+    @param {String} [params.keyThrough]
     @return {LoopbackRelatedClient}
     ###
     getRelatedClient: (params = {}) ->
 
-        { modelName, foreignId, relation } = params
+        { model, name, id, foreignKey, through, keyThrough } = params
 
-        return null if not modelName
+        return null if not model
 
-        relation ?= @constructor.getLbModelName()
+        relName = name ? relationName
+            model      : @constructor.getLbModelName()
+            foreignKey : foreignKey
+            through    : through
+            keyThrough : keyThrough
 
-        clientKey = modelName + '.' + relation # string to identify the related client
-
-        if client = @relClients[clientKey]
-            client.setId foreignId
+        if client = @relClients[relName]
+            client.setId id
             return client
 
         try
-            Repo = @getFacade().require(modelName + '-repository')
+            Repo = @getFacade().require(model + '-repository')
             throw new Error() if (Repo::) not instanceof LoopbackRepository
         catch e
             console.error("""
-                Error in LoopbackRepository#getRelatedClient(). '#{modelName}-repository' is not found,
+                Error in LoopbackRepository#getRelatedClient(). '#{model}-repository' is not found,
                 or it is not an instance of LoopbackRepository.
-                modelName must be compatible with LoopbackRepository when querying with relation.
+                model name must be compatible with LoopbackRepository when querying with relation.
             """)
             return null
 
         relClientOptions =
             one         : Repo.getLbModelName()
-            many        : relation
-            id          : foreignId
+            many        : relName
+            id          : id
             accessToken : @client.accessToken
             timeout     : @client.timeout
             debug       : @client.debug
 
-        @relClients[clientKey] = @getFacade().lbPromised.createRelatedClient(relClientOptions)
+        @relClients[relName] = @getFacade().lbPromised.createRelatedClient(relClientOptions)
 
 
 
