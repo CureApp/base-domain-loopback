@@ -53,6 +53,8 @@ class LoopbackRepository extends BaseAsyncRepository
 
         @client = facade.lbPromised.createClient(lbModelName, options)
 
+        @relClients = {}
+
 
     ###*
     get model name used in LoopBack
@@ -90,7 +92,10 @@ class LoopbackRepository extends BaseAsyncRepository
     @return {Promise(Entity)} entity (the same instance from input, if entity given,)
     ###
     save: (entity, options = {}) ->
-        options.client ?= @getClientByEntity(entity)
+        if not options.client and options.relation
+            options.client = @getRelatedClient(options.relation)
+        else
+            options.client ?= @getClientByEntity(entity)
 
         @modifyDate(entity)
         super(entity, options)
@@ -107,7 +112,10 @@ class LoopbackRepository extends BaseAsyncRepository
     @return {Promise(Entity)} entity
     ###
     get: (id, options = {}) ->
-        options.client ?= @getClientByForeignKey(options.foreignKey)
+        if not options.client and options.relation
+            options.client = @getRelatedClient(options.relation)
+        else
+            options.client ?= @getClientByForeignKey(options.foreignKey)
         super(id, options)
 
 
@@ -134,7 +142,10 @@ class LoopbackRepository extends BaseAsyncRepository
     @return {Promise(Array(Entity))} array of entities
     ###
     query: (params, options = {}) ->
-        options.client ?= @getClientByQuery(params)
+        if not options.client and options.relation
+            options.client = @getRelatedClient(options.relation)
+        else
+            options.client ?= @getClientByQuery(params)
         super(params, options)
 
 
@@ -148,7 +159,10 @@ class LoopbackRepository extends BaseAsyncRepository
     @return {Promise(Entity)} entity
     ###
     singleQuery: (params, options = {}) ->
-        options.client ?= @getClientByQuery(params)
+        if not options.client and options.relation
+            options.client = @getRelatedClient(options.relation)
+        else
+            options.client ?= @getClientByQuery(params)
         super(params, options)
 
 
@@ -163,7 +177,10 @@ class LoopbackRepository extends BaseAsyncRepository
     @return {Promise(Boolean)} isDeleted
     ###
     delete: (entity, options = {}) ->
-        options.client ?= @getClientByEntity(entity)
+        if not options.client and options.relation
+            options.client = @getRelatedClient(options.relation)
+        else
+            options.client ?= @getClientByEntity(entity)
         super(entity, options)
 
 
@@ -178,7 +195,10 @@ class LoopbackRepository extends BaseAsyncRepository
     @return {Promise(Entity)} updated entity
     ###
     update: (id, data, options = {}) ->
-        options.client ?= @getClientByEntity(data) # FIXME fails if data doesnt contain foreign key
+        if not options.client and options.relation
+            options.client = @getRelatedClient(options.relation)
+        else
+            options.client ?= @getClientByEntity(data) # FIXME fails if data doesnt contain foreign key
         @modifyDate(data)
         super(id, data, options)
 
@@ -192,11 +212,62 @@ class LoopbackRepository extends BaseAsyncRepository
     @param {Object} [where]
     @return {Promise(Number)}
     ###
-    count: (where = {}) ->
+    count: (where = {}, options = {}) ->
 
-        client = @getClientByQuery(where: where)
+        if options.client
+            { client } = options
+        else if options.relation
+            client = @getRelatedClient(options.relation)
+        else
+            client ?= @getClientByEntity(data) # FIXME fails if data doesn't contain foreign key
 
         client.count(where)
+
+
+    ###*
+    Get loopback-related-client
+    @method getRelatedClient
+    @protected
+    @param {Object} params
+    @param {String} params.modelName foreign model name
+    @param {String} params.foreignId foreign id
+    @param {String} [params.relation] relation name. If not set, this model name.
+    @return {LoopbackRelatedClient}
+    ###
+    getRelatedClient: (params = {}) ->
+
+        { modelName, foreignId, relation } = params
+
+        return null if not modelName
+
+        relation ?= @constructor.getLbModelName()
+
+        clientKey = modelName + '.' + relation # string to identify the related client
+
+        if client = @relClients[clientKey]
+            client.setId foreignId
+            return client
+
+        try
+            Repo = @getFacade().require(modelName + '-repository')
+            throw new Error() if (Repo::) not instanceof LoopbackRepository
+        catch e
+            console.error("""
+                Error in LoopbackRepository#getRelatedClient(). '#{modelName}-repository' is not found,
+                or it is not an instance of LoopbackRepository.
+                modelName must be compatible with LoopbackRepository when querying with relation.
+            """)
+            return null
+
+        relClientOptions =
+            one         : Repo.getLbModelName()
+            many        : relation
+            id          : foreignId
+            accessToken : @client.accessToken
+            timeout     : @client.timeout
+            debug       : @client.debug
+
+        @relClients[clientKey] = @getFacade().lbPromised.createRelatedClient(relClientOptions)
 
 
 
