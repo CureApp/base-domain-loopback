@@ -33,7 +33,7 @@ describe 'LoopbackRepository', ->
     it 'has client, instance of LoopbackClient', ->
         repo = @domain.createRepository('sample-model')
         expect(repo.client).to.be.instanceof LoopbackClient
-        expect(repo.client).not.to.have.property 'timeout'
+        assert repo.client.timeout is undefined
 
 
     it 'has client, instance of LoopbackClient customized with options', ->
