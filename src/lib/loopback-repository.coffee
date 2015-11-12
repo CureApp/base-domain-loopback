@@ -255,7 +255,9 @@ class LoopbackRepository extends BaseAsyncRepository
             through    : through
             keyThrough : keyThrough
 
-        if client = @relClients[relName]
+        clientKey = model + '.' + relName
+
+        if client = @relClients[clientKey]
             client.setId id
             return client
 
@@ -270,6 +272,7 @@ class LoopbackRepository extends BaseAsyncRepository
             """)
             return null
 
+
         relClientOptions =
             one         : Repo.getLbModelName()
             many        : relName
@@ -278,7 +281,7 @@ class LoopbackRepository extends BaseAsyncRepository
             timeout     : @client.timeout
             debug       : @client.debug
 
-        @relClients[relName] = @getFacade().lbPromised.createRelatedClient(relClientOptions)
+        @relClients[clientKey] = @getFacade().lbPromised.createRelatedClient(relClientOptions)
 
 
 

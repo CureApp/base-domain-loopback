@@ -43,11 +43,17 @@ class LoopbackRelationRepository extends LoopbackRepository
                 "belongsTo" property: #{belongsTo} is not an entity prop.
             """
 
+        # Checking if model has multiple same submodels. If so, relation name will include foreignKey.
+        hasSameSubModel = do =>
+            for prop, typeInfo of modelProps.entityDic when prop isnt belongsTo
+                return true if typeInfo.model is foreignPropType.model
+            return false
+
         @foreignKeyName = foreignPropType.idPropName
 
         @relClient = @getRelatedClient
             model      : foreignPropType.model
-            foreignKey : @foreignKeyName
+            foreignKey : if hasSameSubModel then @foreignKeyName else null
 
 
     ###*
