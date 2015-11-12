@@ -1,28 +1,15 @@
-*.csv
-*.dat
-*.iml
-*.log
-*.out
-*.pid
-*.seed
-*.sublime-*
-*.swo
-*.swp
-*.tgz
-*.xml
-.DS_Store
-.idea
-.project
-.strong-pm
-coverage
 node_modules
+.editorconfig
+spec
+test
+.releaseignore
+.bmp.yml
 npm-debug.log
-dist
-doc
+
+Gruntfile.coffee
+README.litcoffee
+circle.yml
+
 
 # master data
 all.json
-
-# test
-!test/base-domain-loopbackify/node_modules
-test/base-domain-loopbackify/packed.js
