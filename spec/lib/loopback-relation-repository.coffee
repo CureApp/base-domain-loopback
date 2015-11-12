@@ -1,5 +1,5 @@
 
-{ LoopbackRelationRepository, Entity } = require('../base-domain-loopback')
+{ LoopbackRelationRepository, LoopbackRepository, Entity } = require('../base-domain-loopback')
 { LoopbackRelatedClient } = require('loopback-promised')
 
 
@@ -22,9 +22,13 @@ describe 'LoopbackRelationRepository', ->
             @modelName: 'sample-model'
             @belongsTo: 'parent'
 
+        class ParentModelRepository extends LoopbackRepository
+            @modelName: 'parent-model'
+
         @domain.addClass('sample-model', SampleModel)
         @domain.addClass('parent-model', ParentModel)
         @domain.addClass('sample-model-repository', SampleModelRepository)
+        @domain.addClass('parent-model-repository', ParentModelRepository)
 
 
 

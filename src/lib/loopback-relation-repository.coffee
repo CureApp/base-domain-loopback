@@ -45,15 +45,9 @@ class LoopbackRelationRepository extends LoopbackRepository
 
         @foreignKeyName = foreignPropType.idPropName
 
-        relClientOptions =
-            one         : foreignPropType.model
-            many        : @constructor.modelName
-            id          : null
-            accessToken : @client.accessToken
-            timeout     : @client.timeout
-            debug       : @client.debug
-
-        @relClient = @getFacade().lbPromised.createRelatedClient(relClientOptions)
+        @relClient = @getRelatedClient
+            model      : foreignPropType.model
+            foreignKey : @foreignKeyName
 
 
     ###*
