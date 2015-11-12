@@ -158,13 +158,9 @@ class ModelDefinition
 
     addCustomRelations: ->
 
-        return if not @LoopbackRepository.hasMany?
+        return if not @LoopbackRepository.relations?
 
-        for relName, params of @LoopbackRepository.hasMany
-
-            params = JSON.parse JSON.stringify params
-
-            params.type = 'hasMany'
+        for relName, params of @LoopbackRepository.relations
 
             @definition.relations[relName] = params
 
