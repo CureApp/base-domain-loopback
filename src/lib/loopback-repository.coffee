@@ -68,6 +68,31 @@ class LoopbackRepository extends BaseAsyncRepository
         @lbModelName or @modelName
 
 
+
+    ###*
+    Create model instances from query results
+
+    @method createFromQueryResults
+    @protected
+    @param {Object} params
+    @param {Array(Object)} objs
+    @param {Object} [options]
+    @return {Array(BaseModel)} models
+    ###
+    createFromQueryResults: (params = {}, objs = [], options) ->
+
+        return super if not params.include?.relation? or not params.include?.as?
+
+        prop = params.include.relation
+        newProp = params.include.as
+
+        for obj in objs
+            obj[newProp] = obj[prop]
+            delete obj[prop]
+            @createFromResult(obj, options)
+
+
+
     ###*
     convert 'date' type property for loopback format
 
@@ -152,6 +177,7 @@ class LoopbackRepository extends BaseAsyncRepository
             options.client = @getRelatedClient(options.relation)
         else
             options.client ?= @getClientByQuery(params)
+
         super(params, options)
 
 
