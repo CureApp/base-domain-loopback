@@ -1,6 +1,6 @@
 {
   "name": "base-domain-loopback",
-  "version": "2.3.4",
+  "version": "2.3.5",
   "description": "## creates custom model-definitions for loopback-with-admin",
   "main": "dist/lib/loopback-domain-facade.js",
   "directories": {
