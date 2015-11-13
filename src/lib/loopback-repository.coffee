@@ -28,6 +28,19 @@ class LoopbackRepository extends BaseAsyncRepository
     @lbModelName: ''
 
 
+
+    ###*
+    Map to convert loopback's object prop into model prop
+
+    key:   loopback's prop
+    value: model prop
+
+    @property {Object} props
+    @static
+    ###
+    @props: null
+
+
     ###*
     constructor
 
@@ -70,27 +83,23 @@ class LoopbackRepository extends BaseAsyncRepository
 
 
     ###*
-    Create model instances from query results
+    Create model instance from result from client
 
-    @method createFromQueryResults
+    @method createFromResult
     @protected
-    @param {Object} params
-    @param {Array(Object)} objs
+    @param {Object} obj
     @param {Object} [options]
-    @return {Array(BaseModel)} models
+    @return {BaseModel} model
     ###
-    createFromQueryResults: (params = {}, objs = [], options) ->
+    createFromResult: (obj, options) ->
 
-        return super if not params.include?.relation? or not params.include?.as?
+        return super if not obj?
 
-        prop = params.include.relation
-        newProp = params.include.as
+        for lbProp, prop of @constructor.props ? {}
+            obj[prop] = obj[lbProp]
+            delete obj[lbProp]
 
-        for obj in objs
-            obj[newProp] = obj[prop]
-            delete obj[prop]
-            @createFromResult(obj, options)
-
+        super(obj, options)
 
 
     ###*
