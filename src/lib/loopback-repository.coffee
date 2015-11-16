@@ -264,7 +264,7 @@ class LoopbackRepository extends BaseAsyncRepository
         else if options.relation
             client = @getRelatedClient(options.relation)
         else
-            client ?= @getClientByEntity(data) # FIXME fails if data doesn't contain foreign key
+            client ?= @getClientByQuery(where: where)
 
         client.count(where)
 
