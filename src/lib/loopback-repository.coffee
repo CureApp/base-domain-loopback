@@ -35,6 +35,8 @@ class LoopbackRepository extends BaseAsyncRepository
     key:   loopback's prop
     value: model prop
 
+    if value is null or undefined, the property only exists in loopback and is removed from the created model.
+
     @property {Object} props
     @static
     ###
@@ -96,7 +98,9 @@ class LoopbackRepository extends BaseAsyncRepository
         return super if not obj?
 
         for lbProp, prop of @constructor.props ? {}
-            obj[prop] = obj[lbProp]
+            if prop?
+                obj[prop] = obj[lbProp]
+
             delete obj[lbProp]
 
         super(obj, options)
