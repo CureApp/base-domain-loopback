@@ -1,3 +1,4 @@
+'use strict'
 
 LoopbackPromised = require 'loopback-promised'
 Facade = require 'base-domain'

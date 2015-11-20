@@ -1,3 +1,4 @@
+'use strict'
 /*
  * transformer for browserify
  * preloads all the domain files in the directory you set

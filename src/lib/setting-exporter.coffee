@@ -1,3 +1,4 @@
+'use strict'
 
 debug = require('debug')('base-domain-loopback:setting-exporter')
 

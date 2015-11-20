@@ -1,3 +1,4 @@
+'use strict'
 
 LoopbackRepository = require './loopback-repository'
 ###*
