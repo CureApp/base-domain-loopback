@@ -1,4 +1,0 @@
----
-version: 2.6.0
-files:
-  package.json: '"version": "%.%.%",'
