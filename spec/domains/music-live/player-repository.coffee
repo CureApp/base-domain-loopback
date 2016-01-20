@@ -11,6 +11,10 @@ repository of player
 ###
 class PlayerRepository extends BaseDomainLoopback.LoopbackUserRepository
 
+    @lbDefinitions:
+        ttl    : 24 * 3600 * 365 * 10
+        maxTTL : 24 * 3600 * 365 * 100
+
     @aclType: 'owner'
 
     ###*

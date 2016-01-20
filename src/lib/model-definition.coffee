@@ -25,6 +25,9 @@ class ModelDefinition
             validations : []
             relations   : @getBelongsToRelations()
 
+        for k, v of @LoopbackRepository.lbDefinitions ? {}
+            @definition[k] = v
+
 
     ###*
     get model name

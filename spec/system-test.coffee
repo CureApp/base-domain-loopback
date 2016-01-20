@@ -5,9 +5,6 @@ domain = Facade.createInstance dirname: __dirname + '/domains/music-live', debug
 
 modelDefinitions = domain.getModelDefinitions()
 
-modelDefinitions.player.ttl = 24 * 3600 * 365 * 10
-modelDefinitions.player.maxTTL = 24 * 3600 * 365 * 100
-
 before (done) ->
 
     @timeout 10000
