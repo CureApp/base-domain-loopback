@@ -27,14 +27,13 @@
   },
   "dependencies": {
     "base-domain": "~4.0.0",
-    "coffee-script": "^1.9.3",
     "debug": "^2.2.0",
     "loopback-promised": "~1.1.0",
-    "moment": "^2.9.0",
-    "through": "^2.3.7"
+    "moment": "^2.9.0"
   },
   "author": "CureApp, Inc.",
   "devDependencies": {
+    "coffee-script": "^1.9.3",
     "browserify": "^11.2.0",
     "chai": "^3.4.1",
     "coffeeify": "^1.1.0",
