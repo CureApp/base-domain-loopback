@@ -28,7 +28,7 @@
   "dependencies": {
     "base-domain": "~4.0.0",
     "debug": "^2.2.0",
-    "loopback-promised": "~1.1.0",
+    "loopback-promised": "~1.2.0",
     "moment": "^2.9.0"
   },
   "author": "CureApp, Inc.",
