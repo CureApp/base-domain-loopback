@@ -112,7 +112,7 @@ class SettingExporter
                 modelB = @getLbModelName(typeInfoB.model)
 
                 defA = definitions[modelA]
-                defB = definitions[modelA]
+                defB = definitions[modelB]
 
                 defA.setHasManyThroughRelation
                     model: modelB
