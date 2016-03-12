@@ -7,7 +7,7 @@ LoopbackRepository = require './loopback-repository'
 ModelDefinition    = require './model-definition'
 
 ###*
-export model info into loopback-with-admin's format
+export model info into loopback-with-admin's format (loopback-with-admin >=v1.8.0)
 only available in Node.js
 
 @class SettingExporter
@@ -16,6 +16,50 @@ only available in Node.js
 class SettingExporter
 
     constructor: (@facade) ->
+
+
+    ###*
+    Create loopback definition setting object
+    @method export
+    @public
+    @return {Object}
+    ###
+    export: ->
+        models: @createModelDefinitions()
+        customRoles: @createCustomRoleDefinitions()
+
+
+    ###*
+    Create definitions of custom roles (for ACL).
+
+    Prepare directory containing js files exporting a function to pass to Role.registerResolver(name, fn)
+    https://docs.strongloop.com/display/public/LB/Defining+and+using+roles
+    http://apidocs.strongloop.com/loopback/#role-registerresolver
+
+    Define the directory as Facade#customRolePath or move the directory to Facade#dirname + '/custom-roles'
+
+    The name of each custom role is the filename without extension.
+    e.g. team-member.js : team-member
+
+    @method createCustomRoleDefinitions
+    @return {Object}
+    ###
+    createCustomRoleDefinitions: ->
+
+        customRolePath = @facade.customRolePath ? @facade.dirname + '/custom-roles'
+
+        if not fs.existsSync(customRolePath) or not fs.statSync(customRolePath).isDirectory()
+            return null
+
+        customRoles = {}
+
+        for filename in fs.readdirSync(customRolePath) when filename.slice(-3) is '.js'
+            roleName = filename.slice(0, -3)
+            customRoles[roleName] = customRolePath + '/' + filename
+
+        return customRoles
+
+
 
     ###*
     Create ModelDefinitions
@@ -28,11 +72,11 @@ class SettingExporter
     6. add custom relations
     7. return object
 
-    @method export
-    @public
+    @method createModelDefinitions
+    @private
     @return {Object}
     ###
-    export: ->
+    createModelDefinitions: ->
 
         definitions = {}
 

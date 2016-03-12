@@ -8,32 +8,33 @@ describe 'SettingExporter', ->
     beforeEach ->
 
         @domain = require('../create-facade').create(dirname: __dirname + '/../domains/music-live')
-        @result = new SettingExporter(@domain).export()
+        @loopbackDefinitions = new SettingExporter(@domain).export()
+        @modelDefinitions = @loopbackDefinitions.models
 
 
     describe 'export', ->
 
         it 'export entities', ->
-            expect(@result.song).to.be.an 'object'
-            expect(@result.player).to.be.an 'object'
-            expect(@result.instrument).to.be.an 'object'
+            expect(@modelDefinitions.song).to.be.an 'object'
+            expect(@modelDefinitions.player).to.be.an 'object'
+            expect(@modelDefinitions.instrument).to.be.an 'object'
 
         it 'does not export entity with no repository', ->
-            expect(@result.staff).not.to.exist
+            expect(@modelDefinitions.staff).not.to.exist
 
         it 'does not export non entity models', ->
-            expect(@result['live-info']).not.to.exist
+            expect(@modelDefinitions['live-info']).not.to.exist
 
 
         it 'appends "hasMany" relations', ->
-            playerDefObj = @result.player
+            playerDefObj = @modelDefinitions.player
             expect(playerDefObj).to.have.property 'relations'
             expect(playerDefObj.relations).to.have.property 'song'
             expect(playerDefObj.relations.song).to.have.property 'type', 'hasMany'
 
         it 'does not append "hasMany" relations to non-has-many relations', ->
             for entityName in ['instrument', 'song']
-                rels = @result[entityName].relations
+                rels = @modelDefinitions[entityName].relations
                 for relProp, relInfo of rels
                     expect(relInfo.type).not.to.equal 'hasMany'
                     expect(relInfo.type).to.equal 'belongsTo'

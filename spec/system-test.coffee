@@ -52,12 +52,11 @@ describe 'domain', ->
             expect(song.author).to.be.instanceof domain.getModel 'player'
             done()
 
-    it 'can login', (done) ->
+    it 'can login', ->
         domain.createRepository('player').login('shinout@shinout.com', 'shinout').then (result) =>
             @sessionId = result.sessionId
             expect(@sessionId).to.match /\/shin$/
-            expect(result.ttl).to.equal modelDefinitions.player.ttl
-            done()
+            expect(result.ttl).to.equal modelDefinitions.models.player.ttl
 
     it 'can access to "owner" aclType models', (done) ->
 
