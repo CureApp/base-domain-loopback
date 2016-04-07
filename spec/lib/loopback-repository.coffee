@@ -24,29 +24,29 @@ describe 'LoopbackRepository', ->
     describe ',about class properties,', ->
 
         it 'has aclType, default is "admin"', ->
-            expect(LoopbackRepository.aclType).to.equal 'admin'
+            assert LoopbackRepository.aclType is 'admin'
 
         it 'has empty lbModelName', ->
-            expect(LoopbackRepository.lbModelName).to.equal ''
+            assert LoopbackRepository.lbModelName is ''
 
 
-    it 'has client, instance of LoopbackClient', ->
-        repo = @domain.createRepository('sample-model')
-        expect(repo.client).to.be.instanceof LoopbackClient
-        assert repo.client.timeout is undefined
+        it 'has client, instance of LoopbackClient', ->
+            repo = @domain.createRepository('sample-model')
+            assert repo.client instanceof LoopbackClient
+            assert repo.client.timeout is undefined
 
 
-    it 'has client, instance of LoopbackClient customized with options', ->
-        options =
-            timeout: 1000
-            debug: false
-            accessToken: 'abc'
+        it 'has client, instance of LoopbackClient customized with options', ->
+            options =
+                timeout: 1000
+                debug: false
+                accessToken: 'abc'
 
-        repo = @domain.createRepository('sample-model', options)
-        expect(repo.client).to.be.instanceof LoopbackClient
-        expect(repo.client).to.have.property 'timeout', 1000
-        expect(repo.client).to.have.property 'debug', false
-        expect(repo.client).to.have.property 'accessToken', 'abc'
+            repo = @domain.createRepository('sample-model', options)
+            assert repo.client instanceof LoopbackClient
+            assert repo.client.timeout is 1000
+            assert repo.client.debug is false
+            assert repo.client.accessToken is 'abc'
 
 
     describe 'modifyDate', ->
@@ -54,7 +54,7 @@ describe 'LoopbackRepository', ->
             data =
                 date : '1986-03-10'
             @domain.createRepository('sample-model').modifyDate(data)
-            expect(data.date).to.match /1986-03-\d{2}T\d{2}:\d{2}:00\.000Z/
+            assert data.date.match /1986-03-\d{2}T\d{2}:\d{2}:00\.000Z/
 
 
     describe 'save', ->
@@ -86,25 +86,25 @@ describe 'LoopbackRepository', ->
     describe 'getClientByEntity', ->
         it 'returns @client', ->
             repo = @domain.createRepository('sample-model')
-            expect(repo.getClientByEntity()).to.equal repo.client
+            assert repo.getClientByEntity() is repo.client
 
 
     describe 'getClientByForeignKey', ->
         it 'returns @client', ->
             repo = @domain.createRepository('sample-model')
-            expect(repo.getClientByForeignKey()).to.equal repo.client
+            assert repo.getClientByForeignKey() is repo.client
 
 
     describe 'getClientByQuery', ->
         it 'returns @client', ->
             repo = @domain.createRepository('sample-model')
-            expect(repo.getClientByQuery()).to.equal repo.client
+            assert repo.getClientByQuery() is repo.client
 
 
     describe 'parseSessionId', ->
         it 'split sessionId into accessToken and userId', ->
             repo = @domain.createRepository('sample-model')
             [ sessionId, userId ] = repo.parseSessionId('sessionId/userId')
-            expect(sessionId).to.equal 'sessionId'
-            expect(userId).to.equal 'userId'
+            assert sessionId is 'sessionId'
+            assert userId is 'userId'
 
