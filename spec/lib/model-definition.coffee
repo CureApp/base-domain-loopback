@@ -53,76 +53,76 @@ describe 'ModelDefinition', ->
         it 'contains definition', ->
             def = new ModelDefinition(@Child, @ChildRepository, @domain)
 
-            expect(def.definition).to.be.an 'object'
+            assert typeof def.definition is 'object'
 
     describe 'definition', ->
         before ->
             @defObj = new ModelDefinition(@Child, @ChildRepository, @domain).definition
 
         it 'contains aclType, the same as repository\'s aclType', ->
-            expect(@defObj).to.have.property 'aclType', 'public-read'
+            assert @defObj.aclType is 'public-read'
 
         it 'contains name, the same as LoopbackRepository.getLbModelName()', ->
-            expect(@defObj).to.have.property 'name', 'cld'
+            assert @defObj.name is 'cld'
 
         it 'contains plural name, the same as "name"', ->
-            expect(@defObj).to.have.property 'plural', 'cld'
+            assert @defObj.plural is 'cld'
 
         it 'contains base = PersistedModel', ->
-            expect(@defObj).to.have.property 'base', 'PersistedModel'
+            assert @defObj.base is 'PersistedModel'
 
         it 'contains idInjection = true', ->
-            expect(@defObj).to.have.property 'idInjection', true
+            assert @defObj.idInjection
 
         it 'contains properties', ->
-            expect(@defObj).to.have.property 'properties'
+            assert @defObj.properties?
 
         it 'contains validations', ->
-            expect(@defObj).to.have.property 'validations'
+            assert @defObj.validations?
 
         it 'contains [belongsTo] relations', ->
-            expect(@defObj).to.have.property 'relations'
-            expect(@defObj.relations).to.have.property 'pnt'
-            expect(@defObj.relations.pnt).to.have.property 'type', 'belongsTo'
+            assert @defObj.relations?
+            assert @defObj.relations.pnt?
+            assert @defObj.relations.pnt.type is 'belongsTo'
 
 
     describe 'getName', ->
 
         it 'returns name of the entity model', ->
             def = new ModelDefinition(@Child, @ChildRepository, @domain)
-            expect(def.getName()).to.equal 'cld'
+            assert def.getName() is 'cld'
 
 
     describe 'getPluralName', ->
 
         it 'returns plural name of the entity model', ->
             def = new ModelDefinition(@Child, @ChildRepository, @domain)
-            expect(def.getPluralName()).to.equal 'cld'
+            assert def.getPluralName() is 'cld'
 
     describe 'getBase', ->
 
         it 'returns "PersistedModel" if entity model isnt child class of LoopbackUserRepository', ->
             def = new ModelDefinition(@Child, @ChildRepository, @domain)
-            expect(def.getBase()).to.equal 'PersistedModel'
+            assert def.getBase() is 'PersistedModel'
 
 
         it 'returns "User" if entity model isnt child class of LoopbackUserRepository', ->
             def = new ModelDefinition(@Member, @MemberRepository, @domain)
-            expect(def.getBase()).to.equal 'User'
+            assert def.getBase() is 'User'
 
     describe 'export', ->
 
         it 'returns definition object', ->
             def = new ModelDefinition(@Child, @ChildRepository, @domain)
-            expect(def.export()).to.equal def.definition
+            assert def.export() is def.definition
 
 
     describe 'getEntityProps', ->
 
         it 'returns typeInfo of the sub-entities', ->
             def = new ModelDefinition(@Child, @ChildRepository, @domain)
-            expect(def.getEntityProps()).to.have.property 'pnt'
-            expect(def.getEntityProps().pnt).to.have.property 'model', 'parent'
+            assert def.getEntityProps().pnt?
+            assert def.getEntityProps().pnt.model is 'parent'
 
 
     describe 'getBelongsToRelations', ->
@@ -131,10 +131,10 @@ describe 'ModelDefinition', ->
 
             rels = new ModelDefinition(@Child, @ChildRepository, @domain).getBelongsToRelations()
 
-            expect(rels).to.have.property 'pnt'
-            expect(rels.pnt).to.have.property 'type', 'belongsTo'
-            expect(rels.pnt).to.have.property 'model', 'loopback-parent'
-            expect(rels.pnt).to.have.property 'foreignKey', 'parentId'
+            assert rels.pnt?
+            assert rels.pnt.type is 'belongsTo'
+            assert rels.pnt.model is 'loopback-parent'
+            assert rels.pnt.foreignKey is 'parentId'
 
 
     describe 'setHasManyRelation', ->
@@ -146,10 +146,10 @@ describe 'ModelDefinition', ->
 
             rels = def.definition.relations
 
-            expect(rels).to.have.property 'xxx'
-            expect(rels.xxx).to.have.property 'type', 'hasMany'
-            expect(rels.xxx).to.have.property 'model', 'xxx'
-            expect(rels.xxx).to.have.property 'foreignKey', 'xxxId'
+            assert rels.xxx?
+            assert rels.xxx.type is 'hasMany'
+            assert rels.xxx.model is 'xxx'
+            assert rels.xxx.foreignKey is 'xxxId'
 
 
 
