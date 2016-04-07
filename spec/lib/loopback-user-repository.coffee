@@ -22,12 +22,12 @@ describe 'LoopbackUserClient', ->
 
     it 'has client, instance of LoopbackUserClient', ->
         repo = @domain.createRepository('sample-model')
-        expect(repo.client).to.be.instanceof LoopbackUserClient
+        assert repo.client instanceof LoopbackUserClient
 
     it 'has client, instance of LoopbackUserClient with custom options', ->
         repo = @domain.createRepository('sample-model', timeout: 100)
-        expect(repo.client).to.be.instanceof LoopbackUserClient
-        expect(repo.client).to.have.property 'timeout', 100
+        assert repo.client instanceof LoopbackUserClient
+        assert repo.client.timeout is 100
 
     describe 'login', ->
 
@@ -54,10 +54,10 @@ describe 'LoopbackUserClient', ->
             repo.logout = -> Promise.resolve {}
             repo.confirm().then (result) ->
 
-                expect(result).to.be.true
+                assert result
 
                 repo.login = -> Promise.reject new Error()
                 repo.confirm()
 
             .then (result) ->
-                expect(result).to.be.false
+                assert result is false

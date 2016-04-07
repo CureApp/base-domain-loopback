@@ -15,29 +15,29 @@ describe 'SettingExporter', ->
     describe 'export', ->
 
         it 'export entities', ->
-            expect(@modelDefinitions.song).to.be.an 'object'
-            expect(@modelDefinitions.player).to.be.an 'object'
-            expect(@modelDefinitions.instrument).to.be.an 'object'
+            assert typeof @modelDefinitions.song is 'object'
+            assert typeof @modelDefinitions.player is 'object'
+            assert typeof @modelDefinitions.instrument is 'object'
 
         it 'does not export entity with no repository', ->
-            expect(@modelDefinitions.staff).not.to.exist
+            assert not @modelDefinitions.staff?
 
         it 'does not export non entity models', ->
-            expect(@modelDefinitions['live-info']).not.to.exist
+            assert not @modelDefinitions['live-info']?
 
 
         it 'appends "hasMany" relations', ->
             playerDefObj = @modelDefinitions.player
-            expect(playerDefObj).to.have.property 'relations'
-            expect(playerDefObj.relations).to.have.property 'song'
-            expect(playerDefObj.relations.song).to.have.property 'type', 'hasMany'
+            assert playerDefObj.relations?
+            assert playerDefObj.relations.song?
+            assert playerDefObj.relations.song.type is 'hasMany'
 
         it 'does not append "hasMany" relations to non-has-many relations', ->
             for entityName in ['instrument', 'song']
                 rels = @modelDefinitions[entityName].relations
                 for relProp, relInfo of rels
-                    expect(relInfo.type).not.to.equal 'hasMany'
-                    expect(relInfo.type).to.equal 'belongsTo'
+                    assert.notEqual relInfo.type, 'hasMany'
+                    assert relInfo.type is 'belongsTo'
 
 
 
@@ -46,11 +46,11 @@ describe 'SettingExporter', ->
         it 'returns all entity models registered in the domain', ->
             classes = new SettingExporter(@domain).getAllEntityModels()
 
-            expect(classes.length).to.equal 4
+            assert classes.length is 4
 
             for klass in classes
-                expect(klass::).to.be.instanceof Facade.Entity
-                expect(klass.isEntity).to.be.true
+                assert(klass::) instanceof Facade.Entity
+                assert klass.isEntity
 
 
     describe 'loadAll', ->
@@ -59,21 +59,21 @@ describe 'SettingExporter', ->
 
             d = require('../create-facade').create(dirname: __dirname + '/../domains/xxx-no-dir')
 
-            expect(require('fs').existsSync(d.dirname)).to.be.false
+            assert not require('fs').existsSync(d.dirname)
 
-            expect(Object.keys d.classes).to.have.length 0
+            assert Object.keys d.classes.length is 0
 
             new SettingExporter(d).loadAll()
 
-            expect(Object.keys d.classes).to.have.length 0
+            assert Object.keys d.classes.length is 0
 
 
 
         it 'requires entity models in the domain dir', ->
             d = require('../create-facade').create(dirname: __dirname + '/../domains/music-live')
-            expect(Object.keys d.classes).to.have.length 0
+            assert Object.keys d.classes.length is 0
             new SettingExporter(d).loadAll()
-            expect(Object.keys d.classes).to.have.length 13
+            assert Object.keys d.classes.length is 13
 
 
 module.exports = SettingExporter
