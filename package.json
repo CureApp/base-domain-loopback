@@ -34,7 +34,6 @@
   "author": "CureApp, Inc.",
   "devDependencies": {
     "browserify": "^11.2.0",
-    "chai": "^3.4.1",
     "coffee-script": "^1.9.3",
     "coffeeify": "^1.1.0",
     "espower-coffee": "^1.0.0",
