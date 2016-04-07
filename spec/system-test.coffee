@@ -5,7 +5,7 @@ domain = Facade.createInstance dirname: __dirname + '/domains/music-live', debug
 
 modelDefinitions = domain.getModelDefinitions()
 
-before (done) ->
+before ->
 
     @timeout 10000
 
@@ -14,12 +14,11 @@ before (done) ->
         domain.setBaseURL lbInfo.getURL()
         domain.setSessionId lbInfo.getAccessToken()
 
-        done()
 
 
 describe 'domain', ->
 
-    it 'can access to loopback', (done) ->
+    it 'can access to loopback', ->
 
         playerObj =
             id: 'shin'
@@ -36,27 +35,18 @@ describe 'domain', ->
 
         .then (song) ->
             expect(song).to.be.instanceof domain.getModel 'song'
-            done()
 
 
-    it 'can get 1:N-related object', (done) ->
+    it 'can get 1:N-related object', ->
 
         domain.createRepository('song').query(where: authorId: 'shin').then (songs) ->
             expect(songs).to.have.length 1
-            done()
 
 
-    it 'can make query without params', ->
-
-        domain.createRepository('song').query().then (songs) ->
-            expect(songs).to.have.length 1
-
-
-    it 'can get N:1-related object', (done) ->
+    it 'can get N:1-related object', ->
 
         domain.createRepository('song').singleQuery(where: {id: 'lowdown'}, include: 'author').then (song) ->
             expect(song.author).to.be.instanceof domain.getModel 'player'
-            done()
 
     it 'can login', ->
         domain.createRepository('player').login('shinout@shinout.com', 'shinout').then (result) =>
@@ -64,12 +54,11 @@ describe 'domain', ->
             expect(@sessionId).to.match /\/shin$/
             expect(result.ttl).to.equal modelDefinitions.models.player.ttl
 
-    it 'can access to "owner" aclType models', (done) ->
+    it 'can access to "owner" aclType models', ->
 
         domain.setSessionId @sessionId
 
         domain.createRepository('song').query(where: authorId: 'shin').then (songs) ->
             expect(songs).to.have.length 1
-            done()
 
 
