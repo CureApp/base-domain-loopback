@@ -182,7 +182,7 @@ class LoopbackRepository extends BaseAsyncRepository
     @param {Object} [options]
     @return {Promise(Array(Entity))} array of entities
     ###
-    query: (params, options = {}) ->
+    query: (params = {}, options = {}) ->
 
         if params.relation and not options.relation
             options.relation = params.relation
