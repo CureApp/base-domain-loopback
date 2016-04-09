@@ -46,6 +46,12 @@ describe 'domain', ->
             done()
 
 
+    it 'can make query without params', ->
+
+        domain.createRepository('song').query().then (songs) ->
+            expect(songs).to.have.length 1
+
+
     it 'can get N:1-related object', (done) ->
 
         domain.createRepository('song').singleQuery(where: {id: 'lowdown'}, include: 'author').then (song) ->
