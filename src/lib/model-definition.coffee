@@ -87,8 +87,8 @@ class ModelDefinition
         info = {}
         modelProps = @facade.getModelProps(@EntityModel.getName())
 
-        for prop in modelProps.entities
-            info[prop] = modelProps.dic[prop]
+        for prop in modelProps.getEntityProps()
+            info[prop] = modelProps.typeInfoDic[prop] # TODO: modelProps.typeInfoDic should be private.
 
         return info
 

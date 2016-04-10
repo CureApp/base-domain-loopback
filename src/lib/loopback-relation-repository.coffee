@@ -37,7 +37,8 @@ class LoopbackRelationRepository extends LoopbackRepository
 
         modelProps = @getFacade().getModelProps(@getModelName())
         belongsTo = @constructor.belongsTo
-        foreignPropType = modelProps.getTypeInfo(belongsTo)
+        subModelName = modelProps.getSubModelName(belongsTo)
+        subIdName = modelProps.getIdPropByEntityProp(belongsTo)
 
         if not modelProps.isEntity belongsTo
             throw new Error """
@@ -46,14 +47,14 @@ class LoopbackRelationRepository extends LoopbackRepository
 
         # Checking if model has multiple same submodels. If so, relation name will include foreignKey.
         hasSameSubModel = do =>
-            for prop, typeInfo of modelProps.entityDic when prop isnt belongsTo
-                return true if typeInfo.model is foreignPropType.model
+            for prop in modelProps.getEntityProps() when prop isnt belongsTo
+                return true if modelProps.getSubModelName(prop) is subModelName
             return false
 
-        @foreignKeyName = foreignPropType.idPropName
+        @foreignKeyName = subIdName
 
         @relClient = @getRelatedClient
-            model      : foreignPropType.model
+            model      : subModelName
             foreignKey : if hasSameSubModel then @foreignKeyName else null
 
 
