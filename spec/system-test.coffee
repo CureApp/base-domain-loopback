@@ -12,7 +12,7 @@ before (done) ->
     require('loopback-with-admin').run(modelDefinitions).then (lbInfo) ->
 
         domain.setBaseURL lbInfo.getURL()
-        domain.setSessionId lbInfo.getAccessToken()
+        domain.setSessionId lbInfo.getAdminTokens()[0]
 
         done()
 
