@@ -23,7 +23,8 @@
     "pre-release": "gulp coffee",
     "post-release": "echo post-release",
     "gh-pages": "gulp yuidoc",
-    "bmp": "cc-bmp"
+    "bmp": "cc-bmp",
+    "bmp-r": "cc-bmp -r"
   },
   "dependencies": {
     "base-domain": "~4.3.3",
