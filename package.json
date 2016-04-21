@@ -26,7 +26,7 @@
     "bmp": "cc-bmp"
   },
   "dependencies": {
-    "base-domain": "~4.3.1",
+    "base-domain": "~4.3.2",
     "debug": "^2.2.0",
     "loopback-promised": "~1.2.0",
     "moment": "^2.9.0"
