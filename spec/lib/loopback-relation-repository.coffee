@@ -33,7 +33,7 @@ describe 'LoopbackRelationRepository', ->
 
 
     it 'has @belongsTo', ->
-        expect(Object.keys LoopbackRelationRepository).to.contain 'belongsTo'
+        assert LoopbackRelationRepository.hasOwnProperty 'belongsTo'
 
 
     it 'cannot be created when "belongsTo" is not set', ->
@@ -41,7 +41,7 @@ describe 'LoopbackRelationRepository', ->
             @modelName: 'sample-model'
         @domain.addClass('sample-model-repository', Repo)
 
-        expect(=> new Repo({}, @domain)).to.throw 'You must set @belongsTo and @foreignKeyName when extending RelationRepository.'
+        assert.throws (=> new Repo({}, @domain)), 'You must set @belongsTo and @foreignKeyName when extending RelationRepository.'
 
 
     it 'cannot be create when "belongsTo" is not a prop name', ->
@@ -51,23 +51,23 @@ describe 'LoopbackRelationRepository', ->
 
         @domain.addClass('sample-model-repository', Repo)
 
-        expect(=> new Repo({}, @domain)).to.throw '"belongsTo" property: parent-model is not an entity prop.'
+        assert.throws (=> new Repo({}, @domain)), '"belongsTo" property: parent-model is not an entity prop.'
 
 
     it 'is created when "belongsTo" is set', ->
-        expect(=> @domain.createRepository('sample-model')).not.to.throw Error
+        @domain.createRepository('sample-model')
 
     it 'has foreignKeyName', ->
         repo = @domain.createRepository('sample-model')
 
-        expect(repo).to.have.property 'foreignKeyName', 'parentModelId'
+        assert repo.foreignKeyName is 'parentModelId'
 
     it 'has relClient', ->
         repo = @domain.createRepository('sample-model', timeout: 300)
 
-        expect(repo).to.have.property 'relClient'
-        expect(repo.relClient).to.be.instanceof LoopbackRelatedClient
-        expect(repo.relClient).to.have.property 'timeout', 300
+        assert repo.relClient?
+        assert repo.relClient instanceof LoopbackRelatedClient
+        assert repo.relClient.timeout is 300
 
     describe 'getClientByEntity', ->
 
@@ -79,7 +79,7 @@ describe 'LoopbackRelationRepository', ->
                     id: 'pnt'
                     name: 'pnt-name'
 
-            expect(repo.getClientByEntity(entity)).to.equal repo.relClient
+            assert repo.getClientByEntity(entity) is repo.relClient
 
         it 'returns client when it does not contain foreign key', ->
             repo = @domain.createRepository('sample-model')
@@ -88,18 +88,18 @@ describe 'LoopbackRelationRepository', ->
                 parent:
                     name: 'pnt-name'
 
-            expect(repo.getClientByEntity(entity)).to.equal repo.client
+            assert repo.getClientByEntity(entity) is repo.client
 
 
     describe 'getClientByForeignKey', ->
 
         it 'returns relClient when foreign key is passed', ->
             repo = @domain.createRepository('sample-model')
-            expect(repo.getClientByForeignKey(0)).to.equal repo.relClient
+            assert repo.getClientByForeignKey(0) is repo.relClient
 
         it 'returns relClient when foreign key is not passed', ->
             repo = @domain.createRepository('sample-model')
-            expect(repo.getClientByForeignKey(null)).to.equal repo.client
+            assert repo.getClientByForeignKey(null) is repo.client
 
 
     describe 'getClientByQuery', ->
@@ -109,17 +109,17 @@ describe 'LoopbackRelationRepository', ->
             where =
                 parentModelId: 123
 
-            expect(repo.getClientByQuery(where: where)).to.equal repo.relClient
+            assert repo.getClientByQuery(where: where) is repo.relClient
 
         it 'returns client when does not contain where', ->
             repo = @domain.createRepository('sample-model')
-            expect(repo.getClientByQuery({})).to.equal repo.client
+            assert repo.getClientByQuery({}) is repo.client
 
         it 'returns client when query.where contains foreignKey but the value is object', ->
             repo = @domain.createRepository('sample-model')
             where =
                 parentModelId: gte: 122
-            expect(repo.getClientByQuery(where: where)).to.equal repo.client
+            assert repo.getClientByQuery(where: where) is repo.client
 
         it 'returns client when query.where does not contain foreignKey', ->
             repo = @domain.createRepository('sample-model')
@@ -127,5 +127,5 @@ describe 'LoopbackRelationRepository', ->
                 and: [
                     parentModelId: 123
                 ]
-            expect(repo.getClientByQuery(where: where)).to.equal repo.client
+            assert repo.getClientByQuery(where: where) is repo.client
 
