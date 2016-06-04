@@ -33,11 +33,21 @@ describe 'SettingExporter', ->
             assert playerDefObj.relations.song.type is 'hasMany'
 
         it 'does not append "hasMany" relations to non-has-many relations', ->
+            console.log @modelDefinitions
             for entityName in ['instrument', 'song']
                 rels = @modelDefinitions[entityName].relations
                 for relProp, relInfo of rels
                     assert.notEqual relInfo.type, 'hasMany'
                     assert relInfo.type is 'belongsTo'
+
+        context 'medical', ->
+            beforeEach ->
+                @domain = require('../create-facade').create(dirname: __dirname + '/../domains/medical')
+                @loopbackDefinitions = new SettingExporter(@domain).export()
+                @modelDefinitions = @loopbackDefinitions.models
+
+            it.only 'does not append "hasMany" relations to a model that is out of aggregate', ->
+                assert Object.keys(@modelDefinitions.hospital.relations).length is 0
 
 
 
