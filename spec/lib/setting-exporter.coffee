@@ -39,6 +39,15 @@ describe 'SettingExporter', ->
                     assert.notEqual relInfo.type, 'hasMany'
                     assert relInfo.type is 'belongsTo'
 
+        context 'medical', ->
+            beforeEach ->
+                @domain = require('../create-facade').create(dirname: __dirname + '/../domains/medical')
+                @loopbackDefinitions = new SettingExporter(@domain).export()
+                @modelDefinitions = @loopbackDefinitions.models
+
+            it 'does not append "hasMany" relations to a model that is out of aggregate', ->
+                assert Object.keys(@modelDefinitions.hospital.relations).length is 0
+
 
 
     describe 'getAllEntityModels', ->
