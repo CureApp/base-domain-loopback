@@ -14,16 +14,7 @@
   },
   "scripts": {
     "test": "mocha -r spec/global.js spec/*.coffee spec/lib/*.coffee && gulp coffee && npm run base-domain-loopbackify-test",
-    "base-domain-loopbackify-test": "cd test/base-domain-loopbackify; ./test.sh; cd ../..",
-    "bmp-p": "cc-bmp -p",
-    "bmp-m": "cc-bmp -m",
-    "bmp-j": "cc-bmp -j",
-    "circle": "cc-generate-yml",
-    "post-dependencies": "echo post-dependencies",
-    "pre-release": "gulp coffee",
-    "post-release": "echo post-release",
-    "gh-pages": "gulp yuidoc",
-    "bmp": "cc-bmp"
+    "base-domain-loopbackify-test": "cd test/base-domain-loopbackify; ./test.sh; cd ../.."
   },
   "dependencies": {
     "base-domain": "~4.3.4",
@@ -42,7 +33,7 @@
     "gulp-yuidoc": "^0.1.2",
     "loopback-with-admin": "~2.0.0",
     "mocha": "^2.3.3",
-    "node-circleci-autorelease": "^1.5.6",
+    "node-circleci-autorelease": "^2.1.7",
     "power-assert": "^1.1.0"
   },
   "repository": {
@@ -53,20 +44,5 @@
     "url": "https://github.com/CureApp/base-domain-loopback/issues"
   },
   "homepage": "https://github.com/CureApp/base-domain-loopback",
-  "license": "ISC",
-  "node-circleci-autorelease": {
-    "machine": {
-      "node": {
-        "version": "4.2.3"
-      }
-    },
-    "config": {
-      "git-user-name": "CircleCI",
-      "git-user-email": "circleci@cureapp.jp",
-      "version-prefix": "v",
-      "create-branch": false,
-      "create-gh-pages": true,
-      "gh-pages-dir": "doc"
-    }
-  }
+  "license": "ISC"
 }
