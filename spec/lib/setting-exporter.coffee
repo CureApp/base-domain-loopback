@@ -33,7 +33,6 @@ describe 'SettingExporter', ->
             assert playerDefObj.relations.song.type is 'hasMany'
 
         it 'does not append "hasMany" relations to non-has-many relations', ->
-            console.log @modelDefinitions
             for entityName in ['instrument', 'song']
                 rels = @modelDefinitions[entityName].relations
                 for relProp, relInfo of rels
@@ -46,7 +45,7 @@ describe 'SettingExporter', ->
                 @loopbackDefinitions = new SettingExporter(@domain).export()
                 @modelDefinitions = @loopbackDefinitions.models
 
-            it.only 'does not append "hasMany" relations to a model that is out of aggregate', ->
+            it 'does not append "hasMany" relations to a model that is out of aggregate', ->
                 assert Object.keys(@modelDefinitions.hospital.relations).length is 0
 
 
