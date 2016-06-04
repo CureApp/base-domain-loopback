@@ -140,6 +140,7 @@ class SettingExporter
         for lbModelName, definition of definitions
             lbEntityProps = {}
             for prop, typeInfo of definition.getEntityProps()
+                continue if typeInfo.isOutOfAggregate
 
                 if @getLbModelName(typeInfo.model)
                     lbEntityProps[prop] = typeInfo
