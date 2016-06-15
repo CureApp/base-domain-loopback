@@ -17,7 +17,7 @@
     "base-domain-loopbackify-test": "cd test/base-domain-loopbackify; ./test.sh; cd ../.."
   },
   "dependencies": {
-    "base-domain": "~4.3.5",
+    "base-domain": "~4.3.6",
     "debug": "^2.2.0",
     "loopback-promised": "~1.2.0",
     "moment": "^2.9.0"
