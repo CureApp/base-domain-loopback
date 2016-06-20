@@ -17,7 +17,7 @@
   },
   "scripts": {
     "test": "mocha -r spec/global.js spec/*.coffee spec/lib/*.coffee && gulp coffee && npm run base-domain-loopbackify-test",
-    "base-domain-loopbackify-test": "cd test/base-domain-loopbackify; ./test.sh; cd ../.."
+    "base-domain-loopbackify-test": "test/base-domain-loopbackify/test.sh"
   },
   "dependencies": {
     "base-domain": "~4.3.7",
