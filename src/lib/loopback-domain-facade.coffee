@@ -66,7 +66,6 @@ class LoopbackDomainFacade extends Facade
     @LoopbackRepository         : require './loopback-repository'
     @LoopbackUserRepository     : require './loopback-user-repository'
     @LoopbackRelationRepository : require './loopback-relation-repository'
-    @SettingExporter            : require './setting-exporter'
 
 
 module.exports = LoopbackDomainFacade

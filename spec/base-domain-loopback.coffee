@@ -1,2 +1,2 @@
 
-module.exports = require('../src/lib/loopback-domain-facade')
+module.exports = require('../src/main')
