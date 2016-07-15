@@ -19,7 +19,7 @@ class LoopbackUserRepository extends LoopbackRepository
     constructor: (options = {}, root) ->
         super(options, root)
         modelName = @constructor.modelName
-        @client = @getFacade().lbPromised.createUserClient(modelName, options)
+        @client = @facade.lbPromised.createUserClient(modelName, options)
 
 
 
@@ -47,7 +47,7 @@ class LoopbackUserRepository extends LoopbackRepository
 
                 if include is 'include'
 
-                    facade = @getFacade()
+                    facade = @facade
                     oldSessionId = facade.sessionId
                     facade.setSessionId ret.sessionId
 
@@ -79,7 +79,7 @@ class LoopbackUserRepository extends LoopbackRepository
     ###
     logout: (sessionId) ->
         [accessToken, userId] = @parseSessionId sessionId
-        client = @getFacade().lbPromised.createUserClient(@constructor.modelName,
+        client = @facade.lbPromised.createUserClient(@constructor.modelName,
             debug: @client.debug
             accessToken: accessToken
         )
@@ -98,7 +98,7 @@ class LoopbackUserRepository extends LoopbackRepository
     ###
     getBySessionId: (sessionId, options = {}) ->
         [accessToken, userId] = @parseSessionId sessionId
-        client = @getFacade().lbPromised.createUserClient(@constructor.modelName,
+        client = @facade.lbPromised.createUserClient(@constructor.modelName,
             debug: @client.debug
             accessToken: accessToken
         )
@@ -106,7 +106,7 @@ class LoopbackUserRepository extends LoopbackRepository
         client.findById(userId).then (user) =>
             model = @factory.createFromObject user
             if options.include
-                facade = @getFacade()
+                facade = @facade
                 oldSessionId = facade.sessionId
                 facade.setSessionId sessionId
 

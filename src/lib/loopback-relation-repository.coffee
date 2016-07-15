@@ -35,7 +35,7 @@ class LoopbackRelationRepository extends LoopbackRepository
 
         super(options, root)
 
-        modelProps = @getFacade().getModelProps(@getModelName())
+        modelProps = @facade.getModelProps(@getModelName())
         belongsTo = @constructor.belongsTo
         subModelName = modelProps.getSubModelName(belongsTo)
         subIdName = modelProps.getIdPropByEntityProp(belongsTo)

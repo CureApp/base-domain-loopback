@@ -56,7 +56,7 @@ class LoopbackRepository extends BaseAsyncRepository
     constructor: (options = {}, root) ->
         super(root)
 
-        facade = @getFacade()
+        facade = @facade
 
 
         lbModelName = @constructor.getLbModelName()
@@ -115,7 +115,7 @@ class LoopbackRepository extends BaseAsyncRepository
     @param {Entity|Object} data
     ###
     modifyDate: (data) ->
-        modelProps = @getFacade().getModelProps(@getModelName())
+        modelProps = @facade.getModelProps(@getModelName())
         for dateProp in modelProps.dates
             val = data[dateProp]
             if val?
@@ -302,7 +302,7 @@ class LoopbackRepository extends BaseAsyncRepository
             return client
 
         try
-            Repo = @getFacade().require(model + '-repository')
+            Repo = @facade.require(model + '-repository')
             throw new Error() if (Repo::) not instanceof LoopbackRepository
         catch e
             console.error("""
@@ -321,7 +321,7 @@ class LoopbackRepository extends BaseAsyncRepository
             timeout     : @client.timeout
             debug       : @client.debug
 
-        @relClients[clientKey] = @getFacade().lbPromised.createRelatedClient(relClientOptions)
+        @relClients[clientKey] = @facade.lbPromised.createRelatedClient(relClientOptions)
 
 
 
