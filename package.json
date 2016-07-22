@@ -23,7 +23,7 @@
     "base-domain": "~4.7.0",
     "debug": "^2.2.0",
     "loopback-promised": "~1.2.0",
-    "moment": "^2.9.0"
+    "moment": "2.6 - 2.12"
   },
   "author": "CureApp, Inc.",
   "devDependencies": {
