@@ -141,6 +141,17 @@ class LoopbackUserRepository extends LoopbackRepository
 
 
     ###*
+    Override original method.
+    Enable to preserve password property using `__password` option.
+    Mainly for immutable entities.
+    ###
+    createFromResult: (obj, options = {}) ->
+        return super if not options.__password?
+        obj.password = options.__password
+        return super(obj, options)
+
+
+    ###*
     Update or insert a model instance
     reserves password property, as loopback does not return password
 
@@ -149,15 +160,11 @@ class LoopbackUserRepository extends LoopbackRepository
     @param {Entity|Object} entity
     @return {Promise(Entity)} entity (the same instance from input, if entity given,)
     ###
-    save: (entity, options) ->
+    save: (entity, options = {}) ->
 
-        password = entity?.password
+        options.__password = entity?.password
 
-        super(entity, options).then (result) =>
-
-            result.password = password
-
-            return result
+        super(entity, options)
 
 
 module.exports = LoopbackUserRepository
