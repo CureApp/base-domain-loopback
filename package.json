@@ -27,7 +27,7 @@
   },
   "author": "CureApp, Inc.",
   "devDependencies": {
-    "browserify": "^11.2.0",
+    "browserify": "^13.1.0",
     "coffee-script": "^1.9.3",
     "coffeeify": "^1.1.0",
     "espower-coffee": "^1.0.0",
