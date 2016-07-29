@@ -20,7 +20,7 @@
     "test": "mocha -r spec/global.js spec/*.coffee spec/lib/*.coffee && gulp coffee"
   },
   "dependencies": {
-    "base-domain": "~5.0.0",
+    "base-domain": "~5.0.1",
     "debug": "^2.2.0",
     "loopback-promised": "~1.2.0",
     "moment": "2.6 - 2.12"
