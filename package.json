@@ -4,8 +4,7 @@
   "description": "## creates custom model-definitions for loopback-with-admin",
   "main": "dist/main",
   "browser": {
-    "dist/main": "dist/main-browser",
-    "fs": false
+    "./dist/main.js": "./dist/main-browser.js"
   },
   "engines": {
     "node": ">=0.12"
@@ -17,10 +16,11 @@
     "bd-create-master": "bin/create-master-json"
   },
   "scripts": {
-    "test": "mocha -r spec/global.js spec/*.coffee spec/lib/*.coffee && gulp coffee"
+    "test": "mocha -r spec/global.js spec/*.coffee spec/lib/*.coffee && gulp coffee && npm run wp",
+    "wp": "webpack --config webpack-test/webpack.config.js"
   },
   "dependencies": {
-    "base-domain": "~5.0.1",
+    "base-domain": "~5.0.2",
     "debug": "^2.2.0",
     "loopback-promised": "~1.2.0",
     "moment": "2.6 - 2.12"
@@ -35,7 +35,8 @@
     "loopback-with-admin": "~2.0.0",
     "mocha": "^2.3.3",
     "node-circleci-autorelease": "^2.1.7",
-    "power-assert": "^1.1.0"
+    "power-assert": "^1.1.0",
+    "webpack": "^1.13.1"
   },
   "repository": {
     "type": "git",
