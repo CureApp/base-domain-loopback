@@ -22,7 +22,3 @@ doc
 
 # master data
 all.json
-
-# test
-!test/base-domain-loopbackify/node_modules
-test/base-domain-loopbackify/packed.js

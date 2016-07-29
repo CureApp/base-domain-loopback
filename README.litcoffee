@@ -57,15 +57,3 @@ main.coffee
             port: 4157
 
     require('loopback-with-admin').run(modelDefinitions, config)
-
-
-## use in browser with browserify
-[browserify](http://browserify.org/) is a tool for packing a js project into one file for web browsers
-
-to enable base-domain-loopback's requiring system in browsers, use 'base-domain-loopback/ify' transformer.
-
-```bash
-browserify -t [ base-domain-loopback/ify --dirname /path/to/domain/dir ] <entry-file>
-```
-
-
