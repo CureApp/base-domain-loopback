@@ -1,6 +1,6 @@
 {
   "name": "base-domain-loopback",
-  "version": "3.8.0",
+  "version": "4.0.0",
   "description": "## creates custom model-definitions for loopback-with-admin",
   "main": "dist/main",
   "browser": {
