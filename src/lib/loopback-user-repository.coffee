@@ -46,6 +46,7 @@ class LoopbackUserRepository extends LoopbackRepository
             if includeUser
                 model = @factory.createFromObject(response.user)
                 ret[@constructor.modelName] = model
+                ret.user = model
 
                 if include is 'include'
                     oldSessionId = facade.sessionId
@@ -53,18 +54,21 @@ class LoopbackUserRepository extends LoopbackRepository
 
                     return model.include(accessToken: accessToken).then =>
                         ret[@constructor.modelName] = model
+                        ret.user = model
                         facade.setSessionId oldSessionId
                         return ret
 
                 else if include is 'recursive'
                     return model.include(accessToken: accessToken, recursive: true).then =>
                         ret[@constructor.modelName] = model
+                        ret.user = model
                         facade.setSessionId oldSessionId
 
                         return ret
 
                 else
                     ret[@constructor.modelName] = model
+                    ret.user = model
                     return ret
 
             else
