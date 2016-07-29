@@ -18,7 +18,6 @@ deployment:
   create_release_branch:
     branch:
       - master
-      - v3
     commands:
       - nca run gulp coffee
       - nca release --prefix v
