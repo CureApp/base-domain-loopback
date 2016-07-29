@@ -4,7 +4,8 @@
   "description": "## creates custom model-definitions for loopback-with-admin",
   "main": "dist/main",
   "browser": {
-    "dist/main": "dist/main-browser"
+    "dist/main": "dist/main-browser",
+    "fs": false
   },
   "engines": {
     "node": ">=0.12"
