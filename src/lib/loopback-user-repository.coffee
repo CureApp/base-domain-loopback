@@ -32,6 +32,8 @@ class LoopbackUserRepository extends LoopbackRepository
     @return {Promise(Object)}
     ###
     login: (email, password, include) ->
+        facade = @facade
+
         includeUser = include?
         @client.login({email: email, password: password}, if includeUser then 'user' else null).then (response) =>
             accessToken = response.id
@@ -46,8 +48,6 @@ class LoopbackUserRepository extends LoopbackRepository
                 ret[@constructor.modelName] = model
 
                 if include is 'include'
-
-                    facade = @facade
                     oldSessionId = facade.sessionId
                     facade.setSessionId ret.sessionId
 
