@@ -52,9 +52,9 @@ class LoopbackUserRepository extends LoopbackRepository
                     oldSessionId = facade.sessionId
                     facade.setSessionId ret.sessionId
 
-                    return model.$include(accessToken: accessToken).then =>
-                        ret[@constructor.modelName] = model
-                        ret.user = model
+                    return model.$include(accessToken: accessToken).then (newModel) =>
+                        ret[@constructor.modelName] = newModel
+                        ret.user = newModel
                         facade.setSessionId oldSessionId
                         return ret
 
