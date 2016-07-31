@@ -28,7 +28,7 @@ class LoopbackUserRepository extends LoopbackRepository
 
     @param {String} email
     @param {String} password
-    @param {Boolean|String} [include] fetch related model if true. fetch submodels if 'include'. fetch submodels recursively if 'recursive'
+    @param {Boolean|String} [include] fetch related model if true. fetch submodels if 'include'.
     @return {Promise(Object)}
     ###
     login: (email, password, include) ->
@@ -52,18 +52,10 @@ class LoopbackUserRepository extends LoopbackRepository
                     oldSessionId = facade.sessionId
                     facade.setSessionId ret.sessionId
 
-                    return model.include(accessToken: accessToken).then =>
+                    return model.$include(accessToken: accessToken).then =>
                         ret[@constructor.modelName] = model
                         ret.user = model
                         facade.setSessionId oldSessionId
-                        return ret
-
-                else if include is 'recursive'
-                    return model.include(accessToken: accessToken, recursive: true).then =>
-                        ret[@constructor.modelName] = model
-                        ret.user = model
-                        facade.setSessionId oldSessionId
-
                         return ret
 
                 else
@@ -97,7 +89,7 @@ class LoopbackUserRepository extends LoopbackRepository
     @method getBySessionId
     @param {String} sessionId
     @param {Object} [options]
-    @param {Boolean|String} [options.include] include related models or not. if 'recursive' is set, recursively fetches submodels
+    @param {Boolean|String} [options.include] include related models or not.
     @return {Promise(Entity)}
     ###
     getBySessionId: (sessionId, options = {}) ->
@@ -114,7 +106,7 @@ class LoopbackUserRepository extends LoopbackRepository
                 oldSessionId = facade.sessionId
                 facade.setSessionId sessionId
 
-                return model.include(recursive: (options.include is 'recursive')).then ->
+                return model.include().then ->
                     facade.setSessionId oldSessionId
                     return model
 

@@ -49,7 +49,7 @@ describe 'domain', ->
             assert song.author instanceof domain.getModel 'player'
 
     it 'can login', ->
-        domain.createRepository('player').login('shinout@shinout.com', 'shinout').then (result) =>
+        domain.createRepository('player').login('shinout@shinout.com', 'shinout', 'include').then (result) =>
             @sessionId = result.sessionId
             assert @sessionId.match /\/shin$/
             assert result.ttl is modelDefinitions.models.player.ttl
