@@ -249,6 +249,26 @@ class LoopbackRepository extends BaseAsyncRepository
         super(id, data, options)
 
 
+    ###*
+    Update set of attributes and returns newly-updated props (other than `props`)
+
+    @method updateProps
+    @public
+    @param {Entity} entity
+    @param {Object} data key-value pair to update (notice: this must not be instance of Entity)
+    @param {Object} [options]
+    @param {ResourceClientInterface} [options.client=@client]
+    @return {Object} updated props
+    ###
+    updateProps: (entity, props = {}, options = {}) ->
+        if not options.client and options.relation
+            options.client = @getRelatedClient(options.relation)
+        else
+            options.client ?= @getClientByEntity(props) # FIXME fails if props don't contain foreign key
+        @modifyDate(props)
+        super(entity, props, options)
+
+
 
     ###*
     Return the number of models that match the optional "where" filter.
