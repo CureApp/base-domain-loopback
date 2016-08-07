@@ -2,9 +2,9 @@
   "name": "base-domain-loopback",
   "version": "4.0.6",
   "description": "## creates custom model-definitions for loopback-with-admin",
-  "main": "dist/main",
+  "main": "./dist/main.js",
   "browser": {
-    "dist/main.js": "./dist/main-browser.js"
+    "./dist/main.js": "./dist/main-browser.js"
   },
   "engines": {
     "node": ">=0.12"
