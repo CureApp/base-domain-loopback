@@ -34,7 +34,7 @@
     "gulp-yuidoc": "^0.1.2",
     "loopback-with-admin": "~2.0.0",
     "mocha": "^2.3.3",
-    "node-circleci-autorelease": "^2.1.7",
+    "node-circleci-autorelease": "^2.2.2",
     "power-assert": "^1.1.0",
     "webpack": "^1.13.1"
   },
