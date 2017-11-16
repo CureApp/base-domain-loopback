@@ -66,6 +66,48 @@ class LoopbackUserRepository extends LoopbackRepository
             else
                 return ret
 
+    ###*
+    get sessionId from account information (username/password)
+
+    @param {String} username
+    @param {String} password
+    @param {Boolean|String} [include] fetch related model if true. fetch submodels if 'include'.
+    @return {Promise(Object)}
+    ###
+    loginWithUsername: (username, password, include) ->
+        facade = @facade
+
+        includeUser = include?
+        @client.login({username: username, password: password}, if includeUser then 'user' else null).then (response) =>
+            accessToken = response.id
+            userId = if includeUser then response.user.id else response.userId
+
+            ret =
+                sessionId: accessToken + '/' + userId
+                ttl: response.ttl
+
+            if includeUser
+                model = @factory.createFromObject(response.user)
+                ret[@constructor.modelName] = model
+                ret.user = model
+
+                if include is 'include'
+                    oldSessionId = facade.sessionId
+                    facade.setSessionId ret.sessionId
+
+                    return model.$include(accessToken: accessToken).then (newModel) =>
+                        ret[@constructor.modelName] = newModel
+                        ret.user = newModel
+                        facade.setSessionId oldSessionId
+                        return ret
+
+                else
+                    ret[@constructor.modelName] = model
+                    ret.user = model
+                    return ret
+
+            else
+                return ret
 
     ###*
     logout (delete session)
