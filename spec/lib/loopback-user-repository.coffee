@@ -37,6 +37,12 @@ describe 'LoopbackUserClient', ->
 
         xit 'logins with email and password', ->
 
+    describe 'loginWithUsername', ->
+        xit 'cannot login without username or password', ->
+
+        xit 'cannot login with invalid username or password', ->
+
+        xit 'logins with username and password', ->
 
     describe 'getBySessionId', ->
         xit 'cannot fetch a user model by invalid sessionId', ->
